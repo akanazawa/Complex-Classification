@@ -1,0 +1,506 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>CMSC 726 Project 2: Complex Classification</title>
+<style type="text/css">
+<!--
+.style1 {
+font-style: italic;
+font-weight: bold;
+}
+-->
+</style>
+<link href="project.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h2>CMSC 726 Project 2: Complex Classification</h2>
+
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#linear">Gradient Descent and Linear Classification <i>[20%]</i></a>
+<li><a href="#warmup">Warm Up with ML Tools <i>[10%]</i></a></li>
+<li><a href="#reductions">Reductions for Multiclass Classification <i>[30%]</i></a></li>
+<li><a href="#ranking">Ranking or Collective Classification <i>[40%]</i></a></li>
+</ul>
+
+<h3><a name="intro">Introduction</a></h3>
+
+This project has three main components.  The first is, in a sense, a
+continuation of P1 to build linear classifiers under various loss
+functions using (sub)gradient descent.  The second part is about using
+external tools to solve complex classifiation problems (multiclass
+classification, ranking and collective classification).  The purpose
+of this project is to help you understand the trade-offs between
+expressive features, model complexity (and regularization) and the
+learning model.  You will work with three classification libraries,
+one for logistic regression
+(<a href="http://hal3.name/megam/">megam</a>), one for decision trees
+(<a href="http://hal3.name/FastDT/">fastdt</a>) and one for support
+vector machines
+(<a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/">libsvm</a>).
+These are all installed on the junkfood machines in <tt>~hal/bin</tt>,
+or you can install them on your own computer if you'd like.  You
+may/should download all the P2 files <a href="p2.tar.gz">here</a>.<p/>
+
+
+<table border="0" cellpadding="10">
+  <tr><td colspan="2"><b>Files you'll edit:</b></td></tr>
+
+  <tr><td><code>gd.py</code></td>
+  <td>Where you will put your gradient descent implementation.</td></tr>
+  
+  <tr><td><code>linear.py</code></td>
+  <td>This is where your generic "regularized linear classifier"
+  implementation will go.</td></tr>
+
+
+  <tr><td colspan="2"><b>Files you might want to look at:</b></td></tr>
+
+  <tr><td><code>binary.py</code></td>
+  <td>Our generic interface for binary classifiers (actually works for
+  regression and other types of classification, too).</td></tr>
+
+  <tr><td><code>cfdata.py</code></td>
+  <td>Includes (in python format) all the collaborative filtering
+  (course recommendation) data.</td></tr>
+
+  <tr><td><code>datasets.py</code></td>
+  <td>Where a handful of test data sets are stored.</td></tr>
+
+  <tr><td><code>fileMaker.py</code></td>
+  <td>Main helper code for generating files for input to megam,
+  fastdt and libsvm.</td></tr>
+
+  <tr><td><code>mlGraphics.py</code></td>
+  <td>A few useful plotting commands</td></tr>
+
+  <tr><td><code>pixelExtractor.py</code></td>
+  <td>Basic pixel extraction code.</td></tr>
+
+  <tr><td><code>runClassifier.py</code></td>
+  <td>A few wrappers for doing useful things with classifiers, like
+  training them, generating learning curves, etc.</td></tr>
+
+  <tr><td><code>util.py</code></td>
+  <td>A handful of useful utility functions: these will undoubtedly
+  be helpful to you, so take a look!</td></tr>
+
+  <tr><td><code>wordExtractor.py</code></td>
+  <td>Basic bag of words extraction code.</td></tr>
+
+  <tr><td><code>data/*</code></td>
+  <td>All the datasets that we'll use.</td></tr>
+</table><p/>
+
+
+<p><strong>What to submit:</strong> You
+  will <a href="http://www.cs.utah.edu/~hal/handin.pl?course=cmsc726">handin</a>
+  all of the python files listed above under "Files you'll edit" as
+  well as a <tt>partners.txt</tt> file that lists the <b>names</b>
+  and <b>uids</b> (first four digits) of all members in your team.
+  Finally, you'll hand in a <tt>writeup.pdf</tt> file that answers all
+  the written questions in this assignment (denoted by <b>WU#:</b> in
+  this <tt>.html</tt> file).<p/>
+
+<p><strong>Evaluation:</strong> Your code will be autograded for
+technical correctness. Please <em>do not</em> change the names of any
+provided functions or classes within the code, or you will wreak havoc
+on the autograder. However, the correctness of your implementation --
+not the autograder's output -- will be the final judge of your score.
+If necessary, we will review and grade assignments individually to
+ensure that you receive due credit for your work.
+
+<p><strong>Academic Dishonesty:</strong> We will be checking your code
+against other submissions in the class for logical redundancy. If you
+copy someone else's code and submit it with minor changes, we will
+know. These cheat detectors are quite hard to fool, so please don't
+try. We trust you all to submit your own work only; <em>please</em>
+don't let us down. If you do, we will pursue the strongest
+consequences available to us.
+
+<p><strong>Getting Help:</strong> You are not alone!  If you find
+yourself stuck on something, contact the course staff for help.
+Office hours, class time, and the mailing list are there for your
+support; please use them.  If you can't make our office hours, let us
+know and we will schedule more.  We want these projects to be
+rewarding and instructional, not frustrating and demoralizing.  But,
+we don't know when or how to help unless you ask.  One more piece of
+advice: if you don't know what a variable is, print it out.
+
+<h3><a name="linear">Gradient Descent and Linear Classification <i>[20%]</i></a></h3>
+
+To get started with linear models, we will implement a generic
+gradient descent methods.  This should go in <tt>gd.py</tt>, which
+contains a single (short) function: <tt>gd</tt> This takes five
+parameters: the function we're optimizing, it's gradient, an initial
+position, a number of iterations to run, and an initial step size.<p/>
+
+In each iteration of gradient descent, we will compute the gradient
+and take a step in that direction, with step size <tt>eta</tt>.  We
+will have an <i>adaptive</i> step size, where <tt>eta</tt> is computed
+as <tt>stepSize</tt> divided by the square root of the iteration
+number (counting from one).<p/>
+
+Once you have an implementation running, we can check it on a simple
+example of minimizing the function <tt>x^2</tt>:<p/>
+
+<pre>
+>>> gd.gd(lambda x: x**2, lambda x: 2*x, 10, 10, 0.2)
+(1.0034641051795872, array([ 100.        ,   36.        ,   18.5153247 ,   10.95094653,
+          7.00860578,    4.72540613,    3.30810578,    2.38344246,
+          1.75697198,    1.31968118,    1.00694021]))
+</pre>
+
+You can see that the "solution" found is about 1, which is not great
+(it should be zero!), but it's better than the initial value of ten!
+If yours is going up rather than going down, you probably have a sign
+error somewhere!<p/>
+
+We can let it run longer and plot the trajectory:
+
+<pre>
+>>> x, trajectory = gd.gd(lambda x: x**2, lambda x: 2*x, 10, 100, 0.2)
+>>> x
+0.003645900464603937
+>>> plot(trajectory)
+</pre>
+
+It's now found a value close to zero and you can see that the
+objective is decreasing by looking at the plot.<p/>
+
+<b>WU1:</b> Find a few values of step size where it converges and a
+few values where it diverges.  Where does the threshold seem to
+be?<p/>
+
+<b>WU2:</b> Come up with a <i>non-convex</i> univariate optimization
+problem.  Plot the function you're trying to minimize and show two
+runs of <tt>gd</tt>, one where it gets caught in a local minimum and
+one where it manages to make it to a global minimum.  (Use different
+starting points to accomplish this.)<p/>
+
+If you implemented it well, this should work in multiple dimensions,
+too:
+
+<pre>
+>>> x, trajectory = gd.gd(lambda x: linalg.norm(x)**2, lambda x: 2*x, array([10,5]), 100, 0.2)
+>>> x
+array([ 0.0036459 ,  0.00182295])
+>>> plot(trajectory)
+</pre>
+
+Our generic linear classifier implementation is
+in <tt>linear.py</tt>.  The way this works is as follows.  We have an
+interface <tt>LossFunction</tt> that we want to minimize.  This must
+be able to compute the loss for a pair <tt>Y</tt> and <tt>Yhat</tt>
+where, the former is the truth and the latter are the predictions.  It
+must also be able to compute a gradient when additionally given the
+data <tt>X</tt>.  This should be all you need for these.<p/>
+
+There are three loss function stubs: <tt>SquaredLoss</tt> (which is
+implemented for you!), <tt>LogisticLoss</tt> and <tt>HingeLoss</tt>
+(both of which you'll have to implement.  My suggestion is to hold off
+implementing the other two until you have the linear classifier
+working<p/>.
+
+The <tt>LinearClassifier</tt> class is a stub implemention of a
+generic linear classifier with an l2 regularizer.  It
+is <i>unbiased</i> so all you have to take care of are the weights.
+Your implementation should go in <tt>train</tt>, which has a handful
+of stubs.  The idea is to just pass appropriate functions
+to <tt>gd</tt> and have it do all the work.  See the comments inline
+in the code for more information.<p/>
+
+Once you've implemented the function evaluation and gradient, we can
+test this.  We'll begin with a very simple 2D example data set so that
+we can plot the solutions.  We'll also start with <i>no
+regularizer</i> to help you figure out where errors might be if you
+have them.  (You'll have to import <tt>mlGraphics</tt> to make this
+work.)
+
+<pre>
+>>> h = linear.LinearClassifier({'lossFunction': linear.SquaredLoss(), 'lambda': 0, 'numIter': 100, 'stepSize': 0.5})
+>>> runClassifier.trainTestSet(h, datasets.TwoDAxisAligned)
+Training accuracy 0.91, test accuracy 0.86
+>>> h
+w=array([ 2.73466371, -0.29563932])
+>>> mlGraphics.plotLinearClassifier(h, datasets.TwoDAxisAligned.X, datasets.TwoDAxisAligned.Y)
+</pre>
+
+Note that even though this data is clearly linearly separable,
+the <i>unbiased</i> classifier is unable to perfectly separate it.<p/>
+
+If we change the regularizer, we'll get a slightly different
+solution:
+
+<pre>
+>>> h = linear.LinearClassifier({'lossFunction': linear.SquaredLoss(), 'lambda': 10, 'numIter': 100, 'stepSize': 0.5})
+>>> runClassifier.trainTestSet(h, datasets.TwoDAxisAligned)
+Training accuracy 0.9, test accuracy 0.86
+>>> h
+w=array([ 1.30221546, -0.06764756])
+</pre>
+
+As expected, the weights are <i>smaller</i>.<p/>
+
+Now, we can try different loss functions.  Implement logistic loss and
+hinge loss.  Here are some simple test cases:
+
+<pre>
+>>> h = linear.LinearClassifier({'lossFunction': linear.SquaredLoss(), 'lambda': 10, 'numIter': 100, 'stepSize': 0.5})
+>>> runClassifier.trainTestSet(h, datasets.TwoDDiagonal)
+Training accuracy 0.98, test accuracy 0.86
+>>> h
+w=array([ 0.33864367,  1.28110942])
+
+>>> h =  linear.LinearClassifier({'lossFunction': linear.HingeLoss(), 'lambda': 1, 'numIter': 100, 'stepSize': 0.5})
+>>> runClassifier.trainTestSet(h, datasets.TwoDDiagonal)
+Training accuracy 0.98, test accuracy 0.86
+>>> h
+w=array([ 0.84385774,  3.13132617])
+</pre>
+
+<b>WU3:</b> Why does the logistic classifier produce much larger
+weights than the others, even though they all get basically the same
+classification performance?</b>
+
+<h3><a name="warmup">Warm Up with ML Tools <i>[10%]</i></a></h3>
+
+Our first task is to ensure that you are able to successfully run the
+three classifiers and to make sure you understand the appropriate file
+formats.  We'll start with a text classification example.  This data
+is drawn from the twenty newsgroups data set, but we'll only look at
+four newsgroups: comp.graphics, comp.windows.x, rec.sports.baseball
+and rec.sports.hockey.  These are stored as train/test text files,
+where each line corresponds to a post and all new-lines have been
+replaced with tabs.<p/>
+
+We've provided a simple feature extractor (<tt>wordExtractor.py</tt>)
+for the text that first lower-cases everything, removes all non
+alphabetic characters (except spaces) and then treats each word as a
+feature.  To generate data for megam to distinguish between
+comp.graphics and comp.windows.x, run:<p/>
+
+<pre>
+% python wordExtractor.py megam data/train.comp.graphics.txt data/train.comp.windows.x.txt > train.megam
+</pre><p/>
+
+we can do the same to generate test data:<p/>
+
+<pre>
+% python wordExtractor.py megam data/test.comp.graphics.txt data/test.comp.windows.x.txt > test.megam
+</pre><p/>
+
+Here, the arguments are the desired file output type, the data for
+class -1 and the data for class +1.<p/>
+
+We can now train our classifier:<p/>
+
+<pre>
+% megam -fvals binary train.megam > model.megam
+</pre><p/>
+
+The <tt>-fvals</tt> argument tells it that each feature has a
+corresponding feature value (if not given, it assumes features are
+binary).  The resulting weights are stored in <tt>model.megam</tt>.
+It should have run for one hundred iterations and achieved a training
+error of 0.00085.  We can now make predictions on the test data:<p/>
+
+<pre>
+% megam -fvals -predict model.megam binary test.megam > predictions.megam
+</pre><p/>
+
+You should get a test error rate of 17.7%.<p/>
+
+If you inspect the weights file, you should find a bias of 0.329 and
+different weights for the different words.  For instance, "graphics"
+should have a weight of about 1.09 and "windows" should have a weight
+of -0.079.<p/>
+
+<b>WU4:</b> What are the five features with largest positive weight
+and what are the five features with largest negative weight?  Do these
+seem "right" based on the task?<p/>
+
+Next, we'll do the same for decision trees:<p/>
+
+<pre>
+% python wordExtractor.py fastdt data/train.comp.graphics.txt data/train.comp.windows.x.txt > train.fastdt
+% python wordExtractor.py fastdt data/test.comp.graphics.txt data/test.comp.windows.x.txt > test.fastdt
+</pre><p/>
+
+And train:<p/>
+
+<pre>
+% FastDT -maxd 3 train.fastdt > model.fastdt
+% FastDT -load model.fastdt test.fastdt > predictions.fastdt
+</pre><p/>
+
+Here, you should get a test error rate of 21.5%.  If you inspect the
+model.fastdt file, you can see the tree printed in a format quite
+similar to ours from P1.<p/>
+
+<b>WU5:</b> Draw the tree.  How do the selected features compare to
+the features from the logistic regression model?  Which features seem
+"better" and why?  If you use a depth 10 tree, how well do you do on
+test data?<p/>
+
+Finally, we'll do support vector machines.  It's pretty much the same
+as before:<p/>
+
+<pre>
+% python wordExtractor.py libsvm data/train.comp.graphics.txt data/train.comp.windows.x.txt > train.libsvm
+% python wordExtractor.py libsvm data/test.comp.graphics.txt data/test.comp.windows.x.txt > test.libsvm
+</pre><p/>
+
+Now, we can train our svm.<p/>
+
+<pre>
+% svm-train -t 0 train.libsvm model.libsvm
+% svm-predict test.libsvm model.libsvm predictions.libsvm
+</pre><p/>
+
+We should be informed that we got an accuracy of about 78.5%.<p/>
+
+<b><i>Warning:</i></b> One of the really annoying things about libsvm
+is that features have to be numeric, rather than strings.  This means
+we maintain a dictionary (stored in <tt>libsvm-dictionary</tt>) that
+maps string features to numeric ids.  This is automatically created
+and read whenever you generate libsvm data.  <i>However</i>, when you
+switch between tasks, or change your feature representations or
+whatever, you'll probably want to delete this dictionary file.  In
+general, if you follow the rubric of "delete file, then generate train
+data, then generate test data", you'll be safe.  If you want to
+interpret the libsvm models, you'll need to look at the dictionary to
+figure out what the different features are.<p/>
+
+All of the models we looked at in the warm up have different
+hyperparameters.  For megam, the hyperparameter is the regularization
+coefficient, set by "<tt>-lambda ###</tt>" just like in P1.  For
+FastDT, the hyperparameter is the depth of the tree, set by
+"<tt>-maxd</tt>".  For libSVM, it is the value of "C", set by "<tt>-c
+###</tt>".<p/>
+
+<b>WU6:</b> Using comp.graphics versus comp.windows.x, plot training
+and test error curves for each of the algorithms.  For megam, use
+lambda values of 2^x for x in -5, -4, ..., 4, 5.  For FastDT, use
+depths 1 through 20.  For libsvm, use C values of 2^x for x in -5, -4,
+..., 4, 5.  Before actually running these experiments, what do you
+expect to happen?  What actually does happen?<p/>
+
+Next, let's switch to some digits data.  We have three digits: 1, 2
+and 3, in the obviously-named files in the data directory.  These just
+store pixel values.  Use pixelExtractor.py to make training data, for
+example:<p/>
+
+<pre>
+% python pixelExtractor.py megam data/train.digit1 data/train.digit2 > train.megam
+% python pixelExtractor.py megam data/test.digit1 data/test.digit2 > test.megam
+% megam -fvals binary train.megam > model.megam
+% megam -fvals -predict model.megam binary test.megam  > predictions.megam
+</pre><p/>
+
+You should get a 7% error rate.<p/>
+
+<b>WU7:</b> Comparing the performance of the three different
+algorithms on the two tasks (text categorization versus digit
+recognition), which one(s) perform best on one and which on the other?
+Why?<p/>
+
+<h3><a name="reductions">Reductions for Multiclass Classification <i>[30%]</i></a></h3>
+
+In this section, you will explore the differences between three
+multiclass-to-binary reductions: one-versus-all (OVA), all-versus-all
+(AVA) and a tree-based reduction (TREE).  You may implement these in
+whatever language you want, but it should reduce to <i>either</i> one
+of the binary classifiers used above (libSVM, megam or
+FastDT) <i>or</i> the Python <tt>BinaryClassifier</tt> class.  If you
+do the latter, obviously you should do it in Python <tt>:)</tt>.<p/>
+
+For comparison, if you reduce to libSVM, the default multiclass
+implementation in libSVM (if you give it multiclass data) is AVA, so
+you can compare to that.<p/>
+
+<b>WU8:</b> For each of the three reductions, run your classifier on
+the text classification problem with four classes.  For the tree
+reduction, make the first split {graphics,windows} versus
+{baseball,hockey}.  Tune your hyperparameters as well as you can and
+report the best results you can for each of the three.  Which one
+wins?  Which one was easiest to tune hyperparameters for?<p/>
+
+<b>WU9:</b> Change the structure of the tree classifier so that the
+first split is {graphics,baseball} versus {windows,hockey}.  (Thus,
+the hard decision is first, and the easy decisions come second.)
+Return hyperparameters well.  Does this work better or worse than the
+previous split, and why?<p/>
+
+<h3><a name="ranking">Ranking or Collective Classification <i>[40%]</i></a></h3>
+
+In this part, you may choose to <i>either</i> solve a ranking problem
+(using the ranking algorithm from the book) <i>or</i> a collective
+classification problem (again, using the algorithm from the book).
+However, it is <i>up to you</i> to find a data set on which to run
+this algorithm.  So either pick something you've used before that fits
+into one of these two problems, or pick something from one of the data
+set repositories listed below, or talk to Hal if you need some hints
+(talk to him soon!).  If you choose the ranking task, please answer
+WU10a; if you choose the collective classification task, please answer
+WU10b.  Submit all your code in <tt>complex.tgz</tt>.<p/>
+
+No matter which one you do, you may reduce to any system you want of
+the ones used in this project (<tt>linear.py</tt>, libSVM, megam,
+FastDT).  Some of these have features that might be useful for the
+different tasks.  For instance, libSVM and megam support multiclass
+classification internally, so for collective classification, if the
+labels on each node in the graph are multiclass, then you can just
+reduce to multiclass rather than all the way down to binary (which you
+may find easier).  Additionally, megam supports different weights
+(costs) on examples (search for &quot;<tt>$$$WEIGHT</tt>&quot; in the
+documentation), which is useful for ranking.  So choose wisely or
+you'll end up with lots of extra work!<p/>
+
+Some dataset repositories that may or may not have appropriate data:
+<ul>
+<li> http://data.gov/
+<li> http://thedatahub.org/
+<li> http://richard.cyganiak.de/2007/10/lod/ 
+<li> http://archive.ics.uci.edu/ml/
+</ul>
+
+For both tasks, you will probably have to create some of your own
+features.  You should do enough of this that you can get reasonable
+performance, but don't kill yourself trying to get the best
+performance imaginable.<p/>
+
+<b>WU10a:</b> You've chosen ranking!  First, implement the naive
+ranking algorithm (Algs 16 and 17) from the book.  Then, implement the
+more complex ranking algorithm (Algs 18 and 19) from the book.
+Compare their performance.  (Note that if your ranking problem isn't
+bipartite, you'll have to force it to be bipartite to make the naive
+algorithm work: just do something that you think is reasonable to do
+this.)  How have you defined the cost function (omega) in the complex
+model?  In all cases, measure your performance according to whatever
+metric you like the best, but it should <i>not</i> be zero/one loss:
+it should be something more appropriate for ranking (F-measure, area
+under the curve, etc.).  Report on your experience.<p/><p/>
+
+<b>WU10b:</b> You've chosen collective classification!  Implement the
+stacking algorithm (Algs 20 and 21) from the book.  Apply this to your
+problem, and plot the accuracy of your classifier as a function of the
+number of levels in the stack.  Do you observe that stacking helps?
+I.e., does some layer >1 perform better than layer 1?  If not, perhaps
+you're not using sufficiently helpful features between the layers.
+Does the stack ever overfit?  Plot your training error versus your
+test error as a function of the number of layers, and if you observe
+massive overfitting, you might need to do cross-validation to
+attenuate this.  Report on your experience.<p/>
+
+For both of these, I expect about a 1-2 page writeup, including
+appropriate figures.
+
+</body>
+</html>
+
