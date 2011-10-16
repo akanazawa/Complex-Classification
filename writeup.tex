@@ -12,10 +12,36 @@
 
 \section{Gradient Descent and Linear Classification}
 \subsection{WU1}
-\textsf{Find a few values of step size where it converges and a few values where it diverges. Where does the threshold seem to be?}\\
+\textsf{Find a few values of step size where it converges and a few
+  values where it diverges. Where does the threshold seem to be?}\\
+It depends on what the number of iteration is, but with 100
+iterations, from step 0.1 to 6.5 it finds a solution close to
+0. But right after 6.6, it starts to diverge and for any value after
+6.7 it diverges. The treshold seems to be around 6.6.
 
 \subsection{WU2}
-\textsf{Come up with a non-convex univariate optimization problem. Plot the function you're trying to minimize and show two runs of gd, one where it gets caught in a local minimum and one where it manages to make it to a global minimum. (Use different starting points to accomplish this.)}\\
+\textsf{Come up with a non-convex univariate optimization
+  problem. Plot the function you're trying to minimize and show two
+  runs of gd, one where it gets caught in a local minimum and one
+  where it manages to make it to a global minimum. (Use different
+  starting points to accomplish this.)}\\
+Using $f(x) = sin(\pi x) + x^2/2$, $f'(x) = \pi cos(\pi x) + x$, and
+10 iterations, the
+global minimum happens at $x\approx -0.45385$.
+If we start at 0, we can find the global minimum, but if we start at
+1, gd gets caught in a local minimum $1.357$
+\begin{verbatim}
+>>> gd.gd(f, derF, 0, 10, 0.2)
+(-0.45385351939658519, array([ 0.        , -0.72244765, -0.84494752, -0.88472033, -0.88650671,
+       -0.88651822, -0.88651823, -0.88651823, -0.88651823, -0.88651823,
+       -0.88651823]))
+>>> gd.gd(f, derF, 1, 10, 0.2)
+(1.3577434052579487, array([  1.22464680e-16,   4.52961014e-02,   2.50055080e-02,
+         2.00175811e-02,   1.99477186e-02,   1.99477147e-02,
+         1.99477147e-02,   1.99477147e-02,   1.99477147e-02,
+         1.99477147e-02,   1.99477147e-02]))
+\end{verbatim}
+
 \subsection{WU3}
 \textsf{Why does the logistic classifier produce much larger weights than the others, even though they all get basically the same classification performance?}\\
 

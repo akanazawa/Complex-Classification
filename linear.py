@@ -116,10 +116,8 @@ class LinearClassifier(BinaryClassifier):
         the bias.  Also, we are not online, so we implement that full
         train method.
         """
-
         # remember the options
         self.opts = opts
-
         # just call reset
         self.reset()
 
@@ -172,20 +170,16 @@ class LinearClassifier(BinaryClassifier):
         # define our objective function based on loss, lambd and (X,Y)
         def func(w):
             # should compute obj = loss(w) + (lambd/2) * norm(w)^2
-            Yhat = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
-
-            obj  = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
-
+            Yhat = sum(w*X, axis=1)   ### TODO: YOUR CODE HERE           
+            obj  = lossFn.loss(Y,Yhat) + lambd/2*dot(w,w)    ### TODO: YOUR CODE HERE
             # return the objective
             return obj
 
         # define our gradient function based on loss, lambd and (X,Y)
         def grad(w):
             # should compute gr = grad(w) + lambd * w
-            Yhat = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
-
-            gr   = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
-
+            Yhat = sum(w*X, axis=1)    ### TODO: YOUR CODE HERE
+            gr   = lossFn.lossGradient(X, Y, Yhat) + lambd*w    ### TODO: YOUR CODE HERE
             return gr
 
         # run gradient descent; our initial point will just be our
