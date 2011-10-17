@@ -62,20 +62,18 @@ class LogisticLoss(LossFunction):
         The true values are in the vector Y; the predicted values are
         in Yhat; compute the loss associated with these predictions.
         """
-
         ### TODO: YOUR CODE HERE
-        util.raiseNotDefined()
-
-
+        return sum(1/(1+exp(-Y*Yhat)))
+ 
     def lossGradient(self, X, Y, Yhat):
         """
         The inputs are in the matrix X, the true values are in the
         vector Y; the predicted values are in Yhat; compute the
         gradient of the loss associated with these predictions.
         """
-
+        # derivative is: sum_n (exp(-y_n*y'_n))y*x)/(1+exp(-y_n*y'_n))^2
         ### TODO: YOUR CODE HERE
-        util.raiseNotDefined()
+        return sum(-(exp(-Y*Yhat)*Y*X.T)/(1+exp(-Y*Yhat))**2, axis=1)
 
 
 class HingeLoss(LossFunction):
@@ -90,7 +88,8 @@ class HingeLoss(LossFunction):
         """
 
         ### TODO: YOUR CODE HERE
-        util.raiseNotDefined()
+        rightHandSide = 1-Y*Yhat
+        return sum(rightHandSide[rightHandSide > 0]) #sum only positives
 
     def lossGradient(self, X, Y, Yhat):
         """
@@ -98,9 +97,12 @@ class HingeLoss(LossFunction):
         vector Y; the predicted values are in Yhat; compute the
         gradient of the loss associated with these predictions.
         """
-
+        # der: sum max{0, -y_n*y_n'}
         ### TODO: YOUR CODE HERE
-        util.raiseNotDefined()
+        grad = -Y*X.T
+        noInd = (1-Y*Yhat < 0) # set all < 0 to 0
+        grad[:, noInd] = 0
+        return sum(grad, axis=1)
 
 
 class LinearClassifier(BinaryClassifier):
@@ -170,7 +172,8 @@ class LinearClassifier(BinaryClassifier):
         # define our objective function based on loss, lambd and (X,Y)
         def func(w):
             # should compute obj = loss(w) + (lambd/2) * norm(w)^2
-            Yhat = sum(w*X, axis=1)   ### TODO: YOUR CODE HERE           
+            Yhat = sum(w*X, axis=1)   ### TODO: YOUR CODE HERE
+            print lossFn.loss(Y, Yhat)
             obj  = lossFn.loss(Y,Yhat) + lambd/2*dot(w,w)    ### TODO: YOUR CODE HERE
             # return the objective
             return obj
