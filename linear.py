@@ -54,7 +54,7 @@ class SquaredLoss(LossFunction):
 
 class LogisticLoss(LossFunction):
     """
-    Logistic loss is sum_n (1 / (1 + exp(- y_n * y'_n)))
+    Logistic loss is sum_n log(1 + exp(- y_n * y'_n))
     """
 
     def loss(self, Y, Yhat):
@@ -63,7 +63,7 @@ class LogisticLoss(LossFunction):
         in Yhat; compute the loss associated with these predictions.
         """
         ### TODO: YOUR CODE HERE
-        return sum(1/(1+exp(-Y*Yhat)))
+        return sum(log(1+exp(-Y*Yhat)))
  
     def lossGradient(self, X, Y, Yhat):
         """
@@ -71,9 +71,9 @@ class LogisticLoss(LossFunction):
         vector Y; the predicted values are in Yhat; compute the
         gradient of the loss associated with these predictions.
         """
-        # derivative is: sum_n (exp(-y_n*y'_n))y*x)/(1+exp(-y_n*y'_n))^2
+        # derivative is: sum_n -yx/(1+exp(-y_n*y'_n))
         ### TODO: YOUR CODE HERE
-        return sum(-(exp(-Y*Yhat)*Y*X.T)/(1+exp(-Y*Yhat))**2, axis=1)
+        return sum(-Y*X.T*exp(-Y*Yhat)/(1+exp(-Y*Yhat)), axis=1)
 
 
 class HingeLoss(LossFunction):
