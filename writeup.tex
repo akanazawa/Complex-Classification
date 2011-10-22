@@ -57,7 +57,25 @@ If we start at 0, we can find the global minimum, but if we start at
   features from the logistic regression model? Which features seem
   "better" and why? If you use a depth 10 tree, how well do you do on
   test data?}\\
-If I use a depth 10 tree, I get a test error of 20.53\%, (0.463\% improvement)
+TODO: add the image of the tree later
+The selected features include four of the best/worst features from
+the logistic regression (``graphics'', ``motif'', ``window'', and ``x'').
+
+Features can be considered ``better'' when the ratio bewteen class 1
+and class 0 at the leaf is higher and when the frequency of the number
+of instances that got to that leaf is high. In this respect, ``motif''
+and ``vga'' are the better features. ``motif'' has high frequency
+(total 583 instances fall have no motif) and high ratio (about 80\% of
+those without ``motif'' are in class 1).  395 instances fall in
+``vga'', and 84\% of those with no ``vga'' are in class 0. If they
+have ``vga'', 100\% of them are in class 1 (although this may not be the
+best indicator because only 13 data falls into yes ``vga''.) 
+In this respect, ``usr'' is one of the worst features in this tree
+because the relative frequency is low, adn when there is no ``usr'',
+the ratio of class1 to class0 is 6:4.
+
+If I use a depth 10 tree, I get a test error of 20.53\%, (0.463\%
+improvement).
 
 \subsection{WU6}
 \textsf{}\\
