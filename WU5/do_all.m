@@ -1,3 +1,0 @@
-%%%%%%%%%%%%%%%%%%%%
-%Driver for Collective Classification
-%%%%%%%%%%%%%%%%%%%%
