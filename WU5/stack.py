@@ -10,9 +10,9 @@ import sys
 import os
 from subprocess import Popen, PIPE
 
+citeFile = 'cora/cora.cites'
 
-
-def stackTrain(K, citeFile, contentFile):
+def stackTrain(K,  contentFile):
     """
     implementation stacking algorithm. Takes in k which is the number of stacks
     """
@@ -75,15 +75,13 @@ def trainMegam(fin, fout):
 def main():
     K = 1
     DATADIR = 'data/'
-    trainD = DATADIR+'train.content'
-    trainDCite = +'train.cite'
-    testD = DATADIR+'test.content'
-    testDCite = DATADIR+'test.cite'
+    trainF = DATADIR+'train.content'
+    testF = DATADIR+'test.content'
     # train
-    classifiers, trainErrors = stackTrain(K, trainDCite, trainD)
+    classifiers, trainErrors = stackTrain(K, trainD)
     
     # test
-    testIn = initFeatures(testDCite, testD, 'test0.megam')
+    testIn = initFeatures(testDCite, testD, DATADIR+'test0.megam')
     Ys, testErrors = stackTest(classifiers, testIn, K)
     
     # plot
