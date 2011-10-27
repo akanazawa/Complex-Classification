@@ -73,8 +73,8 @@ def trainMegam(fin, fout):
 def main():
     K = 1
     DATADIR = 'data/'
-    trainD = 'data/train.content'
-    trainDCite = 'data/train.cite'
+    trainD = DATADIR+'train.content'
+    trainDCite = DATADIR+'data/train.cite'
     testD = 'data/test.content'
     testDCite = 'data/test.cite'
     # train
