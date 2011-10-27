@@ -10,6 +10,8 @@ import sys
 import os
 from subprocess import Popen, PIPE
 
+
+
 def stackTrain(K, citeFile, contentFile):
     """
     implementation stacking algorithm. Takes in k which is the number of stacks
@@ -34,7 +36,7 @@ def initFeatures(citeFile, contentFile, outputFile):
     """
     returns a tuple
     """
-    return "train.megam"
+    return outputFile
 
 def stackTest(fModels, testData, K):
     """
@@ -74,9 +76,9 @@ def main():
     K = 1
     DATADIR = 'data/'
     trainD = DATADIR+'train.content'
-    trainDCite = DATADIR+'data/train.cite'
-    testD = 'data/test.content'
-    testDCite = 'data/test.cite'
+    trainDCite = +'train.cite'
+    testD = DATADIR+'test.content'
+    testDCite = DATADIR+'test.cite'
     # train
     classifiers, trainErrors = stackTrain(K, trainDCite, trainD)
     
