@@ -6,6 +6,7 @@ Using the cora dataset (www.research.whizbang.com/data) That consists of ML pape
 """
 
 from numpy import *
+from pylab import *
 import sys 
 import os
 from subprocess import Popen, PIPE
@@ -52,8 +53,8 @@ def stackTest(fModels, testData, K):
         fIn[k] = testData if k==0 else stackFeatures(fIn[k-1], fOut[k-1])        
         # test
         print "********** test @ stack %d **********"%k
-        fOut[k], err[k] = predict(fModels[k],fin,fout)
-    return err
+        fOut[k], err[k] = predict(fModels[k],fIn,fOut)
+    return fOut, err
 
 def predict(fModel, fin, fout):
     """
@@ -63,7 +64,7 @@ def predict(fModel, fin, fout):
     p = Popen(cmd,stderr=PIPE,shell=True)
     stdout, stderr = p.communicate() # get the error rate from stderr
     err = stderr.split(' ')[7] # looks like '0.123456\n'
-    err = float(err[0:len(err)-1]) # make it into 0.123456
+    err = err[0:len(err)-1] # make it into 0.123456
     print "error:",err
     return (fout,err)
 
@@ -78,10 +79,10 @@ def main():
     trainF = DATADIR+'train.content'
     testF = DATADIR+'test.content'
     # train
-    classifiers, trainErrors = stackTrain(K, trainD)
+    classifiers, trainErrors = stackTrain(K, trainF)
     
     # test
-    testIn = initFeatures(testDCite, testD, DATADIR+'test0.megam')
+    testIn = initFeatures(citeFile, testF, DATADIR+'test0.megam')
     Ys, testErrors = stackTest(classifiers, testIn, K)
     
     # plot
