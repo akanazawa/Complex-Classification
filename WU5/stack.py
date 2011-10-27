@@ -10,7 +10,7 @@ import sys
 import os
 from subprocess import Popen, PIPE
 
-def stackTrain(K):
+def stackTrain(K, citeFile, contentFile):
     """
     implementation stacking algorithm. Takes in k which is the number of stacks
     """
@@ -19,7 +19,7 @@ def stackTrain(K):
     err = [0]*K 
     classifiers = map(lambda k: "model%d.megam"%k, range(K)) # name of the classifiers
     for k in range(0,K):
-       if k == 0: data = initFeatures('train.cite', 'train.content', fIn[k])
+       if k == 0: data = initFeatures(citeFile, contentFile, fIn[k])
        else: stackFeatures(data, fIn[k-1],fOut[k-1],fIn[k],k)
        # train
        print "********** train stack %d **********"%k
@@ -72,11 +72,16 @@ def trainMegam(fin, fout):
 
 def main():
     K = 1
+    DATADIR = 'data/'
+    trainD = 'data/train.content'
+    trainDCite = 'data/train.cite'
+    testD = 'data/test.content'
+    testDCite = 'data/test.cite'
     # train
-    classifiers, trainErrors = stackTrain(K)
+    classifiers, trainErrors = stackTrain(K, trainDCite, trainD)
     
     # test
-    testIn = initFeatures('test.cite', 'test.content', 'test0.megam')
+    testIn = initFeatures(testDCite, testD, 'test0.megam')
     Ys, testErrors = stackTest(classifiers, testIn, K)
     
     # plot
@@ -86,8 +91,22 @@ def main():
     hold()
     plot(K, testErrors, 'b.')
     title('training error vs test error')
+
+    #cross validate
+#    crossValidate()
     
-    
+# def crossValidate:
+#     files = map(lambda k: "train%d.megam"%k, range(K))
+#     make3Files('train1.cite', 'train.content', 'test.content', 'test.cite');
+#     files = [('data1.cite', 'data1.content'), ('data1.cite', 'data1.content'), ('data1.cite', 'data1.content')]
+#     for i in range(0,3):
+#         for k in range(1, 5): # num of stack
+#         combineFiles(files[1], files[2], fCite, fContent)
+#         classifiers, trainErrors =  trainStack(k, fCite, fContent)
+#         testIn = initFeatures('test.cite', 'test.content', 'test0.megam')
+#         Ys, testErrors = stackTest(classifiers, testIn, K)
+        
+
 
 if __name__ == "__main__":
     main()
