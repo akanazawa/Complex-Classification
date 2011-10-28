@@ -6,10 +6,11 @@ from sets import Set
 # get stop words
 stopWords = open('stopwords.txt', 'r').read().split()
 # files to go through
-texts = ['graphics-windows-test.fastdt', 'graphics-windows-train.fastdt'];
+texts = ['graphics-windows-test.fastdt', 'graphics-windows-train.fastdt', 'train.basebal.hockey.fastdt'];
 # the set
 uniqueWords = Set()
 for f in texts:
+    print "looking at " + f
     possibleWords = open(f, 'r').read().split()
     for w in possibleWords:
         if w not in stopWords or not w.isdigit():
