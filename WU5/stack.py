@@ -9,7 +9,7 @@ from pylab import *
 import sys 
 import os
 from subprocess import Popen, PIPE
-import stackFeatures
+import stackFeatures, pdb
 
 DATADIR = 'data/'
 citeFile = 'cora/cora.cites'
@@ -70,10 +70,12 @@ def predict(fModel, fin, fout):
        
 def trainMegam(fin, fout):
     # call: "megam -fvals multiclass fin > fout"
-    os.system("megam -fvals multiclass %s > %s"%(fin, fout))
-
+    if not os.path.exists(fout):
+        os.system("megam -fvals multiclass %s > %s"%(fin, fout))  
+        
+        
 def main():
-    K = 1
+    K = 5
     trainF = DATADIR+'train.content'
     testF = DATADIR+'test.content'
     # train
@@ -81,26 +83,24 @@ def main():
     # test
     Ys, testErrors = stackTest(classifiers, K, testF)
 
-    print trainErrors
-    # plot
-    # plot(K, testErrors)
-    # figure()
-    # plot(K, trainErors, 'r.')
-    # hold()
-    # plot(K, testErrors, 'b.')
-    # title('training error vs test error')
-
-   #cross validate
-    crossValidate()
+    print "training errors: " + repr(trainErrors)
+    print "test errors: " + repr(testErrors) 
+    # pdb.set_trace()
+    plot(range(K), trainErrors, 'r*-')
+    hold()
+    plot(range(K), testErrors, 'b*-')
+    title('training error vs test error')
+    show()
+   # cross validate
+   #    crossValidate()
     
-def crossValidate:
+def crossValidate():
     files = map(lambda k: "train%d.megam"%k, range(K))
     possibleStacks = [1,2,3,4,5]
     DIR = "crossValidate/"
     #this is 3 folds, data was seperated before hand. this list saves tuples of form: (trainContentFileName, tessContentFileName)
     crossFiles = [('d1R.content', 'd3.content'),  ('d2R.content', 'd1.content'), ('d3R.content', 'd2.content'),]
-    bestError = float('inf')
-    bestK = -1
+    bestErrorAndK = (float('inf'), -1)
     for k in possibleStacks: #for all possible hyperparam
         errs = []
         for i in range(0,3): #try on all crossfold sets
@@ -110,9 +110,8 @@ def crossValidate:
            errs.append(stackTest(classifiers, K, testContent))
         avgErr = mean(errs)
         print "avgErr of k=% was %\%" %(k, avgErr)
-        if avgErr < bestError
-          bestError = avgErr
-          bestK = k
+        if avgErr < bestError[0]:
+          bestError = (avgErr,k) #update if better
            
 
 if __name__ == "__main__":

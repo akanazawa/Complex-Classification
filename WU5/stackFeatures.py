@@ -3,7 +3,7 @@
 import sys
 from numpy import *
 from pylab import *
-
+import pdb
 def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 	# citing is a dictionary which maps a 
 	# paper ID to the IDs of papers it cited
@@ -13,7 +13,6 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 	citing = coraData[1]
 	# IDs in the order they appear in the documents
 	entryIDs = coraData[2]
-
 	# X_{k-1} features
 	featureF = open(featureFile, 'r')
 	# Y_{k-1} predictions
@@ -28,32 +27,38 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 	for line in predictF:
 		toks = line.split()
 		# map entryID to its labelled class
-		predictions[entryIDs[index]] = toks[0]
+		predictions[entryIDs[index]] = int(toks[0])
 		# increment to next entryID
 		index += 1
 
 	index = 0
 	# read each line, each of which is a document
-	for line in contentF:
+	for line in featureF:
+		line = line.rstrip()
 		preCT = [0] * 10
 
 		# tally the labels of your neighbors
 		# TODO weight them by something? (number of citations they have)
-		for neighbor in cited[entryIDs[index]]:
-			preCT[predictions[neighbor]] = preCT[predictions[neighbor]] + 1
+		if cited.has_key(entryIDs[index]):
+			for neighbor in cited[entryIDs[index]]:
+				if predictions.has_key(neighbor):
+					preCT[predictions[neighbor]] = preCT[predictions[neighbor]] + 1
 
 		# normalize and add to feature vector
 		total = sum(preCT)
 		if total > 0:
+
 		   for label in range(len(preCT)):
 			preCT[label] = preCT[label] / total
 			if preCT[label] > 0:
-				line = line + ' L' + label + 'X' + xVersion + ' ' + repr(preCT[label])
+				line = line + ' L' + repr(label) + 'X' + repr(xVersion) + ' ' + repr(preCT[label])
 
-		   # write this feature to a file
-		   outputF.write(line)
-		   outputF.write('\n')
+		# write this feature to a file
+		outputF.write(line)
+		outputF.write('\n')
 
+		index = index + 1
+		   
 	featureF.close()
 	predictF.close()
 	outputF.close()
@@ -103,13 +108,10 @@ def initFeatures(citeFile, contentFile, outputFile):
 		toks = line.split()
 
 		# save the entry ID
-		entryIDs.append(toks[1])
+		entryIDs.append(toks[0])
 
 		# prefix the feature with the <class_label>
 		label = toks[len(toks)-1]
-		#if not labels.has_key(label):
-		#	print label
-		#	labels[label] = len(labels)
 
 		features = repr(labels[label])
 
