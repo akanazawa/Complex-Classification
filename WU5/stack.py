@@ -10,16 +10,17 @@ import sys
 import os
 from subprocess import Popen, PIPE
 import stackFeatures, pdb
+import time
 
 DATADIR = 'data/'
 citeFile = 'cora/cora.cites'
 
-def stackTrain(K,  contentFile):
+def stackTrain(K,  contentFile, DIR):
     """
     implementation stacking algorithm. Takes in k which is the number of stacks
     """
-    fIn = map(lambda k: DATADIR+"train%d.megam"%k, range(K))
-    fOut =  map(lambda k: DATADIR+"Y_train%d.megam"%k, range(K))
+    fIn = map(lambda k: DIR+"train%d.megam"%k, range(K))
+    fOut =  map(lambda k: DIR+"Y_train%d.megam"%k, range(K))
     err = [0]*K 
     classifiers = map(lambda k: DATADIR+"model%d.megam"%k, range(K)) # name of the classifiers
     for k in range(0,K):
@@ -70,49 +71,57 @@ def predict(fModel, fin, fout):
        
 def trainMegam(fin, fout):
     # call: "megam -fvals multiclass fin > fout"
-    if not os.path.exists(fout):
-        os.system("megam -fvals multiclass %s > %s"%(fin, fout))  
+    # if not os.path.exists(fout):
+    os.system("megam -fvals multiclass %s > %s"%(fin, fout))  
         
         
 def main():
-    K = 5
-    trainF = DATADIR+'train.content'
-    testF = DATADIR+'test.content'
-    # train
-    classifiers, trainErrors = stackTrain(K, trainF)
-    # test
-    Ys, testErrors = stackTest(classifiers, K, testF)
+    # K = 5
+    # trainF = DATADIR+'train.content'
+    # testF = DATADIR+'test.content'
+    # # train
+    # classifiers, trainErrors = stackTrain(K, trainF, DATADIR)
+    # # test
+    # Ys, testErrors = stackTest(classifiers, K, testF)
 
-    print "training errors: " + repr(trainErrors)
-    print "test errors: " + repr(testErrors) 
+    # print "training errors: " + repr(trainErrors)
+    # print "test errors: " + repr(testErrors) 
     # pdb.set_trace()
-    plot(range(K), trainErrors, 'r*-')
-    hold()
-    plot(range(K), testErrors, 'b*-')
-    title('training error vs test error')
-    show()
+    # plot(range(K), trainErrors, 'r*-')
+    # hold(True)
+    # plot(range(K), testErrors, 'b*-')
+    # title('training error vs test error')
+    # show()
    # cross validate
-   #    crossValidate()
-    
+    print "**********start cross validation ****"
+    tic = time.clock()
+    blah =  crossValidate()
+    toc = time.clock()
+    print " took " + repr(toc-tic)
+    return blah
+
 def crossValidate():
-    files = map(lambda k: "train%d.megam"%k, range(K))
     possibleStacks = [1,2,3,4,5]
     DIR = "crossValidate/"
     #this is 3 folds, data was seperated before hand. this list saves tuples of form: (trainContentFileName, tessContentFileName)
-    crossFiles = [('d1R.content', 'd3.content'),  ('d2R.content', 'd1.content'), ('d3R.content', 'd2.content'),]
+    crossFiles = [(DIR+'d1R.content', DIR+'d1.content'),  (DIR+'d2R.content', DIR+'d2.content'), (DIR+'d3R.content', DIR+'d3.content')]
     bestErrorAndK = (float('inf'), -1)
     for k in possibleStacks: #for all possible hyperparam
         errs = []
         for i in range(0,3): #try on all crossfold sets
            trainContent = crossFiles[i][0]
            testContent = crossFiles[i][1]
-           classifiers, trainErrors = stackTrain(k,trainContent)
-           errs.append(stackTest(classifiers, K, testContent))
+           classifiers, trainErrors = stackTrain(k,trainContent, DIR)
+           foo, err = stackTest(classifiers, k, testContent)
+           errs.append(err)
+        
+        # pdb.set_trace()
         avgErr = mean(errs)
-        print "avgErr of k=% was %\%" %(k, avgErr)
-        if avgErr < bestError[0]:
-          bestError = (avgErr,k) #update if better
+        print "avgErr of k=%d on holdout %d was %f" %(k, i, avgErr)
+        if avgErr < bestErrorAndK[0]:
+          bestErrorAndK = (avgErr,k) #update if better
            
-
+    print "bestError was %f with K %d"% bestErrorAndK
+    return bestErrorAndK
 if __name__ == "__main__":
     main()

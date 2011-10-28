@@ -128,7 +128,7 @@ def initFeatures(citeFile, contentFile, outputFile):
 		outputF.write(features)
 		outputF.write('\n')
 	
-	print "done writing to:" + outputFile
+	# print "done writing to:" + outputFile
 	citeF.close()
 	contentF.close()
 	outputF.close()
