@@ -77,10 +77,7 @@ def main():
     testF = DATADIR+'test.content'
     # train
     classifiers, trainErrors = stackTrain(K, trainF)
-    
     # test
-    
-
     Ys, testErrors = stackTest(classifiers, K, testF)
 
     print trainErrors
@@ -92,21 +89,30 @@ def main():
     # plot(K, testErrors, 'b.')
     # title('training error vs test error')
 
-    #cross validate
-#    crossValidate()
+   #cross validate
+    crossValidate()
     
-# def crossValidate:
-#     files = map(lambda k: "train%d.megam"%k, range(K))
-#     make3Files('train1.cite', 'train.content', 'test.content', 'test.cite');
-#     files = [('data1.cite', 'data1.content'), ('data1.cite', 'data1.content'), ('data1.cite', 'data1.content')]
-#     for i in range(0,3):
-#         for k in range(1, 5): # num of stack
-#         combineFiles(files[1], files[2], fCite, fContent)
-#         classifiers, trainErrors =  trainStack(k, fCite, fContent)
-#         testIn = initFeatures('test.cite', 'test.content', 'test0.megam')
-#         Ys, testErrors = stackTest(classifiers, testIn, K)
-        
-
+def crossValidate:
+    files = map(lambda k: "train%d.megam"%k, range(K))
+    possibleStacks = [1,2,3,4,5]
+    DIR = "crossValidate/"
+    #this is 3 folds, data was seperated before hand. this list saves tuples of form: (trainContentFileName, tessContentFileName)
+    crossFiles = [('d1R.content', 'd3.content'),  ('d2R.content', 'd1.content'), ('d3R.content', 'd2.content'),]
+    bestError = float('inf')
+    bestK = -1
+    for k in possibleStacks: #for all possible hyperparam
+        errs = []
+        for i in range(0,3): #try on all crossfold sets
+           trainContent = crossFiles[i][0]
+           testContent = crossFiles[i][1]
+           classifiers, trainErrors = stackTrain(k,trainContent)
+           errs.append(stackTest(classifiers, K, testContent))
+        avgErr = mean(errs)
+        print "avgErr of k=% was %\%" %(k, avgErr)
+        if avgErr < bestError
+          bestError = avgErr
+          bestK = k
+           
 
 if __name__ == "__main__":
     main()
