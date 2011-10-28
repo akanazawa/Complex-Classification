@@ -15,18 +15,22 @@ for f in texts:
     print "looking at " + f
     possibleWords = open(f, 'r').read().split()
     for w in possibleWords:
-        if w not in stopWords or not w.isdigit():
+        if w not in stopWords and not w.isdigit() and len(w) > 3:
             w = stem.stemWord(w)
             if w in uniqueWords.keys():
                 uniqueWords[w] +=1 # add count
             else:
                 uniqueWords[w] = 1
 
-for word, count in uniqueWords:
-    if count < 4:
+toDelete = [];
+for word, count in uniqueWords.iteritems():
+    if count < 5:
         print "delete: " + word
-        del uniqueWords[word]
-        
+        toDelete.append(word)
+# remove words with few frequency
+for w in toDelete:
+    del uniqueWords[w]
+    
 output = open('uniqueWords.txt', 'w')
 for w in uniqueWords:
     output.write(w+'\n')
