@@ -4,7 +4,6 @@ Using the cora dataset (www.research.whizbang.com/data) That consists of ML pape
 
 
 """
-
 from numpy import *
 from pylab import *
 import sys 
@@ -24,8 +23,8 @@ def stackTrain(K,  contentFile):
     err = [0]*K 
     classifiers = map(lambda k: DATADIR+"model%d.megam"%k, range(K)) # name of the classifiers
     for k in range(0,K):
-       if k == 0: data = initFeatures(citeFile, contentFile, fIn[k])
-       else: stackFeatures(data, fIn[k-1],fOut[k-1],fIn[k],k)
+       if k == 0: data = stackFeatures.initFeatures(citeFile, contentFile, fIn[k])
+       else: stackFeatures.stackFeatures(data, fIn[k-1],fOut[k-1],fIn[k],k)
        # train
        print "********** train stack %d **********"%k
        trainMegam(fIn[k], classifiers[k])
@@ -42,10 +41,10 @@ def stackTest(fModels, K, testFile):
     """
     fIn = map(lambda k: DATADIR+"test%d.megam"%k, range(K))
     fOut = map(lambda k: DATADIR+"Y_test%d.megam"%k, range(K))
-    data = initFeatures(citeFile, testFile, fIn[0])
+    data = stackFeatures.initFeatures(citeFile, testFile, fIn[0])
     err = [0]*K 
     for k in range(0,K):
-        if k!=0: stackFeatures(data, fIn[k-1], fOut[k-1], fIn[k], k)        
+        if k!=0: stackFeatures.stackFeatures(data, fIn[k-1], fOut[k-1], fIn[k], k)        
         # test
         print "********** test @ stack %d **********"%k
         err[k] = predict(fModels[k],fIn[k],fOut[k])

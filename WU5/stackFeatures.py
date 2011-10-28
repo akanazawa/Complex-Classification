@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import sys
-import cfdata
 from numpy import *
 from pylab import *
 
@@ -44,16 +43,16 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 			preCT[predictions[neighbor]] = preCT[predictions[neighbor]] + 1
 
 		# normalize and add to feature vector
-		total = sum(t)
-		if total > 0
-		for label in range(len(preCT)):
+		total = sum(preCT)
+		if total > 0:
+		   for label in range(len(preCT)):
 			preCT[label] = preCT[label] / total
 			if preCT[label] > 0:
 				line = line + ' L' + label + 'X' + xVersion + ' ' + repr(preCT[label])
 
-		# write this feature to a file
-		outputF.write(line)
-		outputF.write('\n')
+		   # write this feature to a file
+		   outputF.write(line)
+		   outputF.write('\n')
 
 	featureF.close()
 	predictF.close()
@@ -62,6 +61,7 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 
 
 def initFeatures(citeFile, contentFile, outputFile):
+	print "at initFeatuers:" +citeFile + " "+contentFile + " " + outputFile
 	# citing is a dictionary which maps a 
 	# paper ID to the IDs of papers it cited
 	cited = {} 
@@ -107,13 +107,14 @@ def initFeatures(citeFile, contentFile, outputFile):
 		for i in range(len(toks)):
 			# if the word appeared in the document then
 			# add Fi 1.0
-			if toks[i] != 0
+			if toks[i] != 0:
 				features += ' F' + i + ' ' + toks[i] + '.0'
 
 		# write this feature to a file
 		outputF.write(features)
 		outputF.write('\n')
-
+	
+	print "done writing to:" + outputFile
 	citeF.close()
 	contentF.close()
 	outputF.close()
