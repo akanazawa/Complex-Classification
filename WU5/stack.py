@@ -60,6 +60,7 @@ def predict(fModel, fin, fout):
     cmd="megam -predict %s multiclass %s > %s"%(fModel, fin, fout)
     p = Popen(cmd,stderr=PIPE,shell=True)
     stdout, stderr = p.communicate() # get the error rate from stderr
+    print stderr
     err = stderr.split(' ')[7] # looks like '0.123456\n'
     print "error:",err
     err = float(err[0:len(err)-1]) # make it into 0.123456

@@ -74,19 +74,26 @@ def initFeatures(citeFile, contentFile, outputFile):
 	for line in citeF:
 		toks = line.split()
 		
-		if citing.has_key(toks[1]):
-			citing[toks[1]] = citing[toks[1]].append(toks[2])
+		if citing.has_key(toks[0]):
+			citing[toks[0]].append(toks[1])
 		else:
-			citing[toks[1]] = [toks[2]]
+			citing[toks[0]] = [toks[1]]
 
-		if cited.has_key(toks[2]):
-			cited[toks[2]] = cited[toks[2]].append(toks[1])
+		if cited.has_key(toks[1]):
+			cited[toks[1]].append(toks[0])
 		else:
-			cited[toks[2]] = toks[1]
+			cited[toks[1]] = [toks[0]]
 	
 	contentF = open(contentFile, 'r')
 	outputF = open(outputFile, 'w')
 	entryIDs = []
+	labels = {"Theory":0,
+              "Neural_Networks":1,
+              "Genetic_Algorithms":2,
+              "Probabilistic_Methods":3,
+              "Case_Based":4,
+              "Reinforcement_Learning":5,
+              "Rule_Learning":6}
 
 	# read each line, each of which is a document
 	for line in contentF:
@@ -99,7 +106,12 @@ def initFeatures(citeFile, contentFile, outputFile):
 		entryIDs.append(toks[1])
 
 		# prefix the feature with the <class_label>
-		features = repr(toks[len(toks)-1])
+		label = toks[len(toks)-1]
+		#if not labels.has_key(label):
+		#	print label
+		#	labels[label] = len(labels)
+
+		features = repr(labels[label])
 
 		# isolate the <word_attributes>+
 		# and then add them to our feature
@@ -107,8 +119,8 @@ def initFeatures(citeFile, contentFile, outputFile):
 		for i in range(len(toks)):
 			# if the word appeared in the document then
 			# add Fi 1.0
-			if toks[i] != 0:
-				features += ' F' + i + ' ' + toks[i] + '.0'
+			if int(toks[i]) != 0:
+				features += ' F' + str(i) + ' ' + toks[i] + '.0'
 
 		# write this feature to a file
 		outputF.write(features)
