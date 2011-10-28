@@ -1,10 +1,22 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2011.9.14)  22 OCT 2011 15:40
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2009.11.7)  23 OCT 2011 21:01
 entering extended mode
+ \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
-**\input writeup.tex
-(./writeup.tex (/usr/share/texmf-texlive/tex/latex/base/article.cls
+**writeup.tex
+(./writeup.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, german-x-2009-06-19, ngerman-x-2009-06-19, ancientgreek, ibycus, ar
+abic, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danish, dutc
+h, esperanto, estonian, farsi, finnish, french, galician, german, ngerman, mono
+greek, greek, hungarian, icelandic, indonesian, interlingua, irish, italian, ku
+rmanji, latin, latvian, lithuanian, mongolian, mongolian2a, bokmal, nynorsk, po
+lish, portuguese, romanian, russian, sanskrit, serbian, slovak, slovenian, span
+ish, swedish, turkish, ukenglish, ukrainian, uppersorbian, welsh, loaded.
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texmf-texlive/tex/latex/base/size11.clo
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -19,37 +31,38 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/etc/texmf/tex/latex/config/graphics.cfg
+(/usr/local/texlive/2009/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: dvips.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
-File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
+\Gread@gobject=\count87
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-(/usr/share/texmf-texlive/tex/latex/subfig/subfig.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
-(/usr/share/texmf-texlive/tex/latex/caption/caption.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2009/10/09 v3.1k Customizing captions (AR)
 
-(/usr/share/texmf-texlive/tex/latex/caption/caption3.sty
+(/usr/local/texlive/2009/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
 \captionmargin=\dimen105
 \captionmargin@=\dimen106
@@ -58,22 +71,23 @@ Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
 \caption@parindent=\dimen109
 \caption@hangindent=\dimen110
 )
-\c@ContinuedFloat=\count87
+\c@ContinuedFloat=\count88
 )
-\c@KVtest=\count88
+\c@KVtest=\count89
 \sf@farskip=\skip43
 \sf@captopadj=\dimen111
 \sf@capskip=\skip44
 \sf@nearskip=\skip45
-\c@subfigure=\count89
-\c@subfigure@save=\count90
-\c@lofdepth=\count91
-\c@subtable=\count92
-\c@subtable@save=\count93
-\c@lotdepth=\count94
+\c@subfigure=\count90
+\c@subfigure@save=\count91
+\c@lofdepth=\count92
+\c@subtable=\count93
+\c@subtable@save=\count94
+\c@lotdepth=\count95
 \sf@top=\skip46
 \sf@bottom=\skip47
-) (./writeup.aux)
+)
+(./writeup.aux)
 \openout1 = `writeup.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
@@ -88,6 +102,20 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
 LaTeX Font Info:    ... okay on input line 7.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
 LaTeX Font Info:    ... okay on input line 7.
+
+(/usr/local/texlive/2009/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count96
+\scratchdimen=\dimen112
+\scratchbox=\box26
+\nofMPsegments=\count97
+\nofMParguments=\count98
+\everyMPshowfont=\toks15
+\MPscratchCnt=\count99
+\MPscratchDim=\dimen113
+\MPnumerator=\count100
+\everyMPtoPDFconversion=\toks16
+)
 Package caption Info: Begin \AtBeginDocument code.
 Package caption3 Info: subfig package 1.2 or 1.3 is loaded.
 LaTeX Info: Redefining \subref on input line 7.
@@ -120,49 +148,64 @@ Overfull \hbox (105.6437pt too wide) in paragraph at lines 43--43
 
 [1
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 81--82
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 84--85
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 88--89
+{/usr/local/texlive/2009/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 91--92
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 95--96
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 99--100
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--114
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--118
 
  []
 
 [3] (./writeup.aux) ) 
 Here is how much of TeX's memory you used:
- 1629 strings out of 495062
- 25451 string characters out of 1182644
- 90032 words of memory out of 3000000
- 4851 multiletter control sequences out of 15000+50000
+ 1994 strings out of 493848
+ 30638 string characters out of 3149207
+ 94964 words of memory out of 3000000
+ 5309 multiletter control sequences out of 15000+200000
  8976 words of font info for 32 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
- 44i,6n,42p,210b,189s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 714 hyphenation exceptions out of 8191
+ 44i,6n,42p,203b,189s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/local/texlive/2009/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr12.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr17.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr8.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ss10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+8.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10
+.pfb>
+Output written on writeup.pdf (3 pages, 125681 bytes).
+PDF statistics:
+ 52 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Output written on writeup.dvi (3 pages, 5072 bytes).
