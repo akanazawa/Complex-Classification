@@ -11,16 +11,17 @@ import sys
 import os
 from subprocess import Popen, PIPE
 
+DATADIR = 'data/'
 citeFile = 'cora/cora.cites'
 
 def stackTrain(K,  contentFile):
     """
     implementation stacking algorithm. Takes in k which is the number of stacks
     """
-    fIn = map(lambda k: "train%d.megam"%k, range(K))
-    fOut =  map(lambda k: "Y_train%d.megam"%k, range(K))
+    fIn = map(lambda k: DATADIR+"train%d.megam"%k, range(K))
+    fOut =  map(lambda k: DATADIR+"Y_train%d.megam"%k, range(K))
     err = [0]*K 
-    classifiers = map(lambda k: "model%d.megam"%k, range(K)) # name of the classifiers
+    classifiers = map(lambda k: DATADIR+"model%d.megam"%k, range(K)) # name of the classifiers
     for k in range(0,K):
        if k == 0: data = initFeatures(citeFile, contentFile, fIn[k])
        else: stackFeatures(data, fIn[k-1],fOut[k-1],fIn[k],k)
@@ -29,7 +30,7 @@ def stackTrain(K,  contentFile):
        trainMegam(fIn[k], classifiers[k])
        
        # test, get \hat Y[k], here don't do stackTest but reuse
-       fOut[k],err[k] = predict(classifiers[k], fIn[k-1], "Y%d.megam"%k)
+       fOut[k],err[k] = predict(classifiers[k], fIn[k-1], DATADIR+"Y%d.megam"%k)
 
     return (classifiers,err)
        
@@ -64,7 +65,7 @@ def predict(fModel, fin, fout):
     p = Popen(cmd,stderr=PIPE,shell=True)
     stdout, stderr = p.communicate() # get the error rate from stderr
     err = stderr.split(' ')[7] # looks like '0.123456\n'
-    err = err[0:len(err)-1] # make it into 0.123456
+    err = float(err[0:len(err)-1]) # make it into 0.123456
     print "error:",err
     return (fout,err)
 
@@ -75,23 +76,23 @@ def trainMegam(fin, fout):
 
 def main():
     K = 1
-    DATADIR = 'data/'
     trainF = DATADIR+'train.content'
     testF = DATADIR+'test.content'
     # train
     classifiers, trainErrors = stackTrain(K, trainF)
     
     # test
-    testIn = initFeatures(citeFile, testF, DATADIR+'test0.megam')
+    testIn = initFeatures(citeFile, testF, DATADIR+'test.megam')
     Ys, testErrors = stackTest(classifiers, testIn, K)
-    
+
+    print trainErrors
     # plot
-    plot(K, testErrors)
-    figure()
-    plot(K, trainErors, 'r.')
-    hold()
-    plot(K, testErrors, 'b.')
-    title('training error vs test error')
+    # plot(K, testErrors)
+    # figure()
+    # plot(K, trainErors, 'r.')
+    # hold()
+    # plot(K, testErrors, 'b.')
+    # title('training error vs test error')
 
     #cross validate
 #    crossValidate()
