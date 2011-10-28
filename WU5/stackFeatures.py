@@ -16,17 +16,17 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 	entryIDs = coraData[2]
 
 	# X_{k-1} features
-    featureF = open(featureFile, 'r')
+	featureF = open(featureFile, 'r')
 	# Y_{k-1} predictions
-    predictF = open(predictFile, 'r')
+	predictF = open(predictFile, 'r')
 	# outpu file 
-    outputF = open(outputFile, 'w')
+	outputF = open(outputFile, 'w')
 
 	# A dictionary which maps entryIDs to their labelled classes
 	predictions = {}
 
 	index = 0
-    for line in predictF:
+	for line in predictF:
 		toks = line.split()
 		# map entryID to its labelled class
 		predictions[entryIDs[index]] = toks[0]
@@ -34,8 +34,8 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 		index += 1
 
 	index = 0
-    # read each line, each of which is a document
-    for line in contentF:
+	# read each line, each of which is a document
+	for line in contentF:
 		preCT = [0] * 10
 
 		# tally the labels of your neighbors
@@ -55,8 +55,8 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 		outputF.write(line)
 		outputF.write('\n')
 
-    featureF.close()
-    predictF.close()
+	featureF.close()
+	predictF.close()
 	outputF.close()
 
 
@@ -70,9 +70,9 @@ def initFeatures(citeFile, contentFile, outputFile):
 	citing = {}
 
 	# read in the links
-    citeF = open(citeFile, 'r')
-    for line in citeF:
-    	toks = line.split()
+	citeF = open(citeFile, 'r')
+	for line in citeF:
+		toks = line.split()
 		
 		if citing.has_key(toks[1]):
 			citing[toks[1]] = citing[toks[1]].append(toks[2])
@@ -84,15 +84,15 @@ def initFeatures(citeFile, contentFile, outputFile):
 		else:
 			cited[toks[2]] = toks[1]
 	
-    contentF = open(contentFile, 'r')
-    outputF = open(outputFile, 'w')
+	contentF = open(contentFile, 'r')
+	outputF = open(outputFile, 'w')
 	entryIDs = []
 
-    # read each line, each of which is a document
-    for line in contentF:
+	# read each line, each of which is a document
+	for line in contentF:
 		# Each line is in the format:
 		# <paper_id> <word_attributes>+ <class_label>
-	    # first split the line
+		# first split the line
 		toks = line.split()
 
 		# save the entry ID
@@ -104,7 +104,7 @@ def initFeatures(citeFile, contentFile, outputFile):
 		# isolate the <word_attributes>+
 		# and then add them to our feature
 		toks = toks[1:len(toks)-1]
-	    for i in range(len(toks)):
+		for i in range(len(toks)):
 			# if the word appeared in the document then
 			# add Fi 1.0
 			if toks[i] != 0
@@ -114,8 +114,8 @@ def initFeatures(citeFile, contentFile, outputFile):
 		outputF.write(features)
 		outputF.write('\n')
 
-    citeF.close()
-    contentF.close()
+	citeF.close()
+	contentF.close()
 	outputF.close()
 
 	coraData = (cited, citing, entryIDs)
