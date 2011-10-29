@@ -12,7 +12,7 @@ keys = feats.keys()
 # keys = sorted(keys)
 
 X = ""
-files=("graphics-windows-train.megam","train.basebal.hockey.megam")
+files=("graphics-windows-test.megam","test.baseball.hockey.megam")
 for fl in files:
 	f2 = open(fl,'r')
 	for words in f2:
