@@ -47,11 +47,13 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 		# normalize and add to feature vector
 		total = sum(preCT)
 		if total > 0:
+			#if len(nonzero(preCT)[0]) > 1:
+			#	pdb.set_trace()
 
-		   for label in range(len(preCT)):
-			preCT[label] = preCT[label] / total
-			if preCT[label] > 0:
-				line = line + ' L' + repr(label) + 'X' + repr(xVersion) + ' ' + repr(preCT[label])
+			for label in range(len(preCT)):
+				preCT[label] = preCT[label] / float(total)
+				if preCT[label] > 0:
+					line = line + ' L' + repr(label) + 'X' + repr(xVersion) + ' ' + repr(preCT[label])
 
 		# write this feature to a file
 		outputF.write(line)
@@ -67,7 +69,7 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 
 def initFeatures(citeFile, contentFile, outputFile):
 	print "at initFeatuers:" +citeFile + " "+contentFile + " " + outputFile
-	# citing is a dictionary which maps a 
+	# cited is a dictionary which maps a 
 	# paper ID to the IDs of papers it cited
 	cited = {} 
 	# citing is a dictionary which maps a
