@@ -12,7 +12,7 @@ from subprocess import Popen, PIPE
 import stackFeatures, pdb
 import time
 
-DATADIR = 'data/'
+
 citeFile = 'cora/cora.cites'
 
 def stackTrain(K,  contentFile, DIR):
@@ -22,7 +22,7 @@ def stackTrain(K,  contentFile, DIR):
     fIn = map(lambda k: DIR+"train%d.megam"%k, range(K))
     fOut =  map(lambda k: DIR+"Y_train%d.megam"%k, range(K))
     err = [0]*K 
-    classifiers = map(lambda k: DATADIR+"model%d.megam"%k, range(K)) # name of the classifiers
+    classifiers = map(lambda k: DIR+"model%d.megam"%k, range(K)) # name of the classifiers
     for k in range(0,K):
        if k == 0: data = stackFeatures.initFeatures(citeFile, contentFile, fIn[k])
        else: stackFeatures.stackFeatures(data, fIn[k-1],fOut[k-1],fIn[k],k)
@@ -36,12 +36,12 @@ def stackTrain(K,  contentFile, DIR):
     return (classifiers,err)
        
 
-def stackTest(fModels, K, testFile):
+def stackTest(fModels, K, testFile, DIR):
     """
     Implementation of algorithm 21. Takes in k classifiers( fModel ), and fin are strings (filename), k is the level of stack
     """
-    fIn = map(lambda k: DATADIR+"test%d.megam"%k, range(K))
-    fOut = map(lambda k: DATADIR+"Y_test%d.megam"%k, range(K))
+    fIn = map(lambda k:DIR+"test%d.megam"%k, range(K))
+    fOut = map(lambda k: DIR+"Y_test%d.megam"%k, range(K))
     data = stackFeatures.initFeatures(citeFile, testFile, fIn[0])
     err = [0]*K 
     for k in range(0,K):
@@ -76,13 +76,14 @@ def trainMegam(fin, fout):
         
         
 def main():
+    DATADIR = 'data/'
     # K = 5
     # trainF = DATADIR+'train.content'
     # testF = DATADIR+'test.content'
     # # train
     # classifiers, trainErrors = stackTrain(K, trainF, DATADIR)
     # # test
-    # Ys, testErrors = stackTest(classifiers, K, testF)
+    # Ys, testErrors = stackTest(classifiers, K, testF, DATADIR)
 
     # print "training errors: " + repr(trainErrors)
     # print "test errors: " + repr(testErrors) 
@@ -112,7 +113,7 @@ def crossValidate():
            trainContent = crossFiles[i][0]
            testContent = crossFiles[i][1]
            classifiers, trainErrors = stackTrain(k,trainContent, DIR)
-           foo, err = stackTest(classifiers, k, testContent)
+           foo, err = stackTest(classifiers, k, testContent, DIR)
            errs.append(err)
         
         # pdb.set_trace()
