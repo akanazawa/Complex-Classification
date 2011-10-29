@@ -35,7 +35,7 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 	# read each line, each of which is a document
 	for line in featureF:
 		line = line.rstrip()
-		preCT = [0] * 10
+		preCT = [0.0] * 10
 
 		# tally the labels of your neighbors
 		# TODO weight them by something? (number of citations they have)
@@ -44,6 +44,12 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 				if predictions.has_key(neighbor):
 					preCT[predictions[neighbor]] = preCT[predictions[neighbor]] + 1
 
+		if citing.has_key(entryIDs[index]):
+			for neighbor in citing[entryIDs[index]]:
+				if predictions.has_key(neighbor):
+					preCT[predictions[neighbor]] = preCT[predictions[neighbor]] + 1
+
+
 		# normalize and add to feature vector
 		total = sum(preCT)
 		if total > 0:
@@ -51,9 +57,9 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 			#	pdb.set_trace()
 
 			for label in range(len(preCT)):
-				preCT[label] = preCT[label] / float(total)
+				preCT[label] = round(preCT[label] / float(total), 10)
 				if preCT[label] > 0:
-					line = line + ' L' + repr(label) + 'X' + repr(xVersion) + ' ' + repr(preCT[label])
+					line = line + ' L' + str(label) + 'X' + str(xVersion) + ' ' + str(preCT[label])
 
 		# write this feature to a file
 		outputF.write(line)
