@@ -1,7 +1,7 @@
 \documentclass[a4paper,11pt]{article}
 
 \usepackage{graphicx}
-\usepackage{subfig}
+\usepackage{subfig,hyperref}
 
 
 \begin{document}
@@ -30,18 +30,17 @@ Using $f(x) = sin(\pi x) + x^2/2$, $f'(x) = \pi cos(\pi x) + x$, and
 global minimum happens at $x\approx -0.45385$.
 If we start at 0, we can find the global minimum, but if we start at
 1, gd gets caught in a local minimum $1.357$
+Output:
 \begin{verbatim}
 >>> gd.gd(f, derF, 0, 10, 0.2)
-(-0.45385351939658519, array([ 0.        , -0.72244765, -0.84494752, -0.88472033, -0.88650671,
-       -0.88651822, -0.88651823, -0.88651823, -0.88651823, -0.88651823,
-       -0.88651823]))
+(-0.45385351939658519, array([ 0 -0.72244765, -0.84494752, -0.88472033, -0.88650671,-0.88651822, -0.88651823, -0.88651823, -0.88651823, -0.88651823, -0.88651823]))
 >>> gd.gd(f, derF, 1, 10, 0.2)
-(1.3577434052579487, array([  1.22464680e-16,   4.52961014e-02,   2.50055080e-02,
-         2.00175811e-02,   1.99477186e-02,   1.99477147e-02,
-         1.99477147e-02,   1.99477147e-02,   1.99477147e-02,
-         1.99477147e-02,   1.99477147e-02]))
+(1.3577434052579487, array([  1.22464680e-16, 4.52961014e-02,
+2.50055080e-02, 2.00175811e-02, 1.99477186e-02, 1.99477147e-02,
+1.99477147e-02, 1.99477147e-02, 1.99477147e-02, 1.99477147e-02, 1.99477147e-02]))
 \end{verbatim}
-
+The first run finds the global minimum, but the second one
+doesn't. (the first value in the ouptut of gd is the solution it found)
 \subsection{WU3}
 \textsf{Why does the logistic classifier produce much larger weights
   than the others, even though they all get basically the same
@@ -75,7 +74,12 @@ based on the task?}\\
   features from the logistic regression model? Which features seem
   "better" and why? If you use a depth 10 tree, how well do you do on
   test data?}\\
-TODO: add the image of the tree later
+\begin{figure}[h!]
+  \caption{WU5: The tree}
+  \centering
+   \includegraphics[width=5in]{wu5_tree.pdf}
+\end{figure}
+
 The selected features include four of the best/worst features from
 the logistic regression (``graphics'', ``motif'', ``window'', and ``x'').
 
@@ -107,7 +111,7 @@ improvement).
 
 \subsection{WU9}
 \textsf{}\\
-
+\pagebreak
 \subsection{Ranking or Collective Classification}
 \subsection{WU10b}
 \textsf{plot the accuracy of your classifier as a function
@@ -118,11 +122,12 @@ improvement).
   your test error as a function of the number of layers, and if you
   observe massive overfitting, you might need to do cross-validation
   to attenuate this. Report on your experience.}\\
-We chose collective classification. We used the cora dataset
-(www.research.whizbang.com/data), which is a collection of 2708
-Machine Learning papers. The papers are classified into one of the seven
-classes (Case_Based, Genetic_Algorithms, Neural_Networks,
-Probabilistic_Methods, Reinforcement_Learning, Rule_Learning,
+We chose collective classification. 
+
+We used the cora dataset (\url{www.research.whizbang.com/data}), which is a collection of
+2708 Machine Learning papers. The papers are classified into one of the seven
+classes (Case Based, Genetic Algorithms, Neural Networks,
+Probabilistic Methods, Reinforcement Learning, Rule Learning,
 Theory). The data is represented by 1433 unique words.
 The cora dataset also comes with the citation graph of the papers
 which we use as edges (links) between documents. There are total of
@@ -140,7 +145,20 @@ class 4, 2 and 2, 3 respectively by the previous classifier, our new feature wou
 information that 50\% of A's neighbors were class 2, and 25\% class 4
 and 3. 
 
-We randomly selected 80\% of documents (2150) to use as training data,
-and the remaining 20\% as testing data (550).
-      
+We randomly selected 80\% of documents (2150) to use as training data
+and the remaining 20\% as testing data (550).\\
+
+
+Does stacking help?\\
+
+
+Does the stack ever overfit? Figure 2 is the plot of our training
+error versus your test error as a function of the number of layers.
+\begin{figure}[h!]
+  \caption{WU10b: Training error and test error as a fn of the number of layers }
+  \centering
+%   \includegraphics[width=5in]{WU5/traintest.png}
+\end{figure}\\
+
+We tried
 \end{document}
