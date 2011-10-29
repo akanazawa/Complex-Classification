@@ -119,12 +119,28 @@ improvement).
   observe massive overfitting, you might need to do cross-validation
   to attenuate this. Report on your experience.}\\
 We chose collective classification. We used the cora dataset
-(www.research.whizbang.com/data), which is a collection of Machine
-Learning papers. The papers are classified into one of the seven
+(www.research.whizbang.com/data), which is a collection of 2708
+Machine Learning papers. The papers are classified into one of the seven
 classes (Case_Based, Genetic_Algorithms, Neural_Networks,
-Probabilistic_Methods, Reinforcement_Learning, Rule_Learning, Theory). The data is represented by 1433 unique words.
+Probabilistic_Methods, Reinforcement_Learning, Rule_Learning,
+Theory). The data is represented by 1433 unique words.
+The cora dataset also comes with the citation graph of the papers
+which we use as edges (links) between documents. There are total of
+5429 directonal links.
 
+For collective classification, the original feature we used was a
+vector indicating the ID of the word in the vocabulary that is present
+in the paper.
 
+In each of the stacking process, for each document we counted how many
+neighbors of the document were classified as each possible class,
+normalized the counts, and added those values as new features. i.e. if
+document A linked to document B, C, D, and E, which were classified as
+class 4, 2 and 2, 3 respectively by the previous classifier, our new feature would add the
+information that 50\% of A's neighbors were class 2, and 25\% class 4
+and 3. 
 
+We randomly selected 80\% of documents (2150) to use as training data,
+and the remaining 20\% as testing data (550).
       
 \end{document}
