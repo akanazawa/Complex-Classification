@@ -77,29 +77,29 @@ def trainMegam(fin, fout):
         
 def main():
     DATADIR = 'data/'
-    # K = 5
-    # trainF = DATADIR+'train.content'
-    # testF = DATADIR+'test.content'
-    # # train
-    # classifiers, trainErrors = stackTrain(K, trainF, DATADIR)
-    # # test
-    # Ys, testErrors = stackTest(classifiers, K, testF, DATADIR)
+    K = 10
+    trainF = DATADIR+'train.content'
+    testF = DATADIR+'test.content'
+    # train
+    classifiers, trainErrors = stackTrain(K, trainF, DATADIR)
+    # test
+    Ys, testErrors = stackTest(classifiers, K, testF, DATADIR)
 
-    # print "training errors: " + repr(trainErrors)
-    # print "test errors: " + repr(testErrors) 
-    # pdb.set_trace()
-    # plot(range(K), trainErrors, 'r*-')
-    # hold(True)
-    # plot(range(K), testErrors, 'b*-')
-    # title('training error vs test error')
-    # show()
+    print "training errors: " + repr(trainErrors)
+    print "test errors: " + repr(testErrors) 
+    pdb.set_trace()
+    plot(range(K), trainErrors, 'r*-')
+    hold(True)
+    plot(range(K), testErrors, 'b*-')
+    title('training error vs test error')
+    show()
    # cross validate
-    print "**********start cross validation ****"
-    tic = time.clock()
-    blah =  crossValidate()
-    toc = time.clock()
-    print " took " + repr(toc-tic)
-    return blah
+    # print "**********start cross validation ****"
+    # tic = time.clock()
+    # blah =  crossValidate()
+    # toc = time.clock()
+    # print " took " + repr(toc-tic)
+    # return blah
 
 def crossValidate():
     possibleStacks = [1,2,3,4,5]

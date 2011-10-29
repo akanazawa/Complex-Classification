@@ -109,12 +109,20 @@ improvement).
 \textsf{}\\
 
 \subsection{Ranking or Collective Classification}
-\subsection{WU10a}
-\textsf{}\\
-
-
 \subsection{WU10b}
-\textsf{}\\
+\textsf{plot the accuracy of your classifier as a function
+  of the number of levels in the stack. Do you observe that stacking
+  helps? I.e., does some layer >1 perform better than layer 1? If not,
+  perhaps you're not using sufficiently helpful features between the
+  layers. Does the stack ever overfit? Plot your training error versus
+  your test error as a function of the number of layers, and if you
+  observe massive overfitting, you might need to do cross-validation
+  to attenuate this. Report on your experience.}\\
+We chose collective classification. We used the cora dataset
+(www.research.whizbang.com/data), which is a collection of Machine
+Learning papers. The papers are classified into one of the seven
+classes (Case_Based, Genetic_Algorithms, Neural_Networks,
+Probabilistic_Methods, Reinforcement_Learning, Rule_Learning, Theory). The data is represented by 1433 unique words.
 
 
 
