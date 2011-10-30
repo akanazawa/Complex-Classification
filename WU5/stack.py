@@ -105,7 +105,7 @@ def main():
     return blah
 
 def crossValidate():
-    possibleStacks = [1,2,3,4,5,6,7]
+    possibleStacks = [1,2,3,4,5]
     DIR = "crossValidate/"
     #this is 3 folds, data was seperated before hand. this list saves tuples of form: (trainContentFileName, tessContentFileName)
     crossFiles = [(DIR+'d1R.content', DIR+'d1.content'),  (DIR+'d2R.content', DIR+'d2.content'), (DIR+'d3R.content', DIR+'d3.content')]

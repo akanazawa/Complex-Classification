@@ -120,7 +120,6 @@ def BinaryPredict(file_to_predict,classes):
 		idx = idx +1
 		
 def trainMegam(fin, fout):
-
     os.system("./megam -fvals -tune -lambda %f binary %s > %s"%(lambda_value,fin, fout))  
 
 def testMegam(fin,test,fout):

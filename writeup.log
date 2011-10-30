@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2011.9.14)  29 OCT 2011 17:55
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2011.9.14)  29 OCT 2011 18:26
 entering extended mode
  %&-line parsing enabled.
 **\input writeup.tex
@@ -266,28 +266,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 54--55
 
  []
 
-
-! LaTeX Error: Cannot determine size of graphic in wu5_tree.pdf (no BoundingBox
-).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.80    \includegraphics[width=5in]{wu5_tree.pdf}
-                                                 
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-File: wu5_tree.pdf Graphic file (type eps)
-<wu5_tree.pdf>
-Overfull \hbox (1.34999pt too wide) in paragraph at lines 80--81
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 [2]
 Underfull \hbox (badness 10000) in paragraph at lines 103--104
 
@@ -298,29 +276,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 106--107
 
  []
 
-[3]
+
 Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 148--150
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 140--142
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 152--153
-
- []
-
-[5] (./writeup.aux) ) 
+[4] (./writeup.aux) ) 
 Here is how much of TeX's memory you used:
- 4884 strings out of 495062
- 74872 string characters out of 1182644
+ 4887 strings out of 495062
+ 74897 string characters out of 1182644
  155324 words of memory out of 3000000
- 8026 multiletter control sequences out of 15000+50000
- 8976 words of font info for 32 fonts, out of 3000000 for 9000
+ 8027 multiletter control sequences out of 15000+50000
+ 9905 words of font info for 35 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 44i,6n,42p,684b,297s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,6n,42p,259b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on writeup.dvi (5 pages, 16716 bytes).
+Output written on writeup.dvi (4 pages, 16504 bytes).

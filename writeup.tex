@@ -77,7 +77,7 @@ based on the task?}\\
 \begin{figure}[h!]
   \caption{WU5: The tree}
   \centering
-   \includegraphics[width=5in]{wu5_tree.pdf}
+%   \includegraphics[width=5in]{wu5_tree.pdf}
 \end{figure}
 
 The selected features include four of the best/worst features from
@@ -114,14 +114,6 @@ improvement).
 \pagebreak
 \subsection{Ranking or Collective Classification}
 \subsection{WU10b}
-\textsf{plot the accuracy of your classifier as a function
-  of the number of levels in the stack. Do you observe that stacking
-  helps? I.e., does some layer >1 perform better than layer 1? If not,
-  perhaps you're not using sufficiently helpful features between the
-  layers. Does the stack ever overfit? Plot your training error versus
-  your test error as a function of the number of layers, and if you
-  observe massive overfitting, you might need to do cross-validation
-  to attenuate this. Report on your experience.}\\
 We chose collective classification. 
 
 We used the cora dataset (\url{www.research.whizbang.com/data}), which is a collection of
@@ -148,17 +140,51 @@ and 3.
 We randomly selected 80\% of documents (2150) to use as training data
 and the remaining 20\% as testing data (550).\\
 
+\textbf{Results:} With 6-layers,we get \% accuracy on the testing set
+and \% on the training set. With a single layer (no-stacking), we get
+\% accuracy and \% on the training set.
 
-Does stacking help?\\
+We have noticed that stacking does seem to help, but depends heavily on
+the data. If the documents in training data does not link to many documents
+within the training set, the information about prior predictions of the
+neighbors is not very informative. (This happens because we ignore all
+the edges that connect documents in the training set to test set.)
+But if the training set has many effective links (links to those in
+the same set), stacking becomes effective and the training
+error decreases as the number of layers go up(up to certain point).
 
-
-Does the stack ever overfit? Figure 2 is the plot of our training
-error versus your test error as a function of the number of layers.
+Figure 2 is the plot of our training error versus your test error as a
+function of the number of layers. This is when the stacking helps and
+we see a general trend of overfitting.
 \begin{figure}[h!]
-  \caption{WU10b: Training error and test error as a fn of the number of layers }
+  \caption{WU10b: Training error vs test error as a fn of the number of layers }
   \centering
 %   \includegraphics[width=5in]{WU5/traintest.png}
-\end{figure}\\
+\end{figure}
 
-We tried
+So in Figure 2 the algorithm was effective, but when we generate
+another set of test/training data randomly, we observed that sometimes
+training error goes up as the number of layers increase. This can be
+seen in figure 3.
+\begin{figure}[h!]
+  \caption{Training error vs test error when the training data has
+    less links}
+  \centering
+%   \includegraphics[width=5in]{WU5/traintest.png}
+\end{figure}
+
+From the observations, we can see that it's important to divide the
+data carefully so that the ``connectivity'' of documents in the
+training set is similar to that of the test set, and that we have
+enough edges to make stacking effective. 
+
+\textbf{Does the stack ever overfit?}\\
+When stacking helps, We do observe the general trend of overfitting
+(figure 2).
+
+So we ran 3-fold cross-validation, testing possible number of layers
+from 1 to 10, and got that $K=\mathbf{??}$ works the best with average error on
+the hold out sets \textbf{??}\%.
+ 0.241407 with K 5
+
 \end{document}
