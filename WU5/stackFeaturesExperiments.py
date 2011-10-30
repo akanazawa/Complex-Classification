@@ -31,24 +31,63 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 		# increment to next entryID
 		index += 1
 
+	boot = False
+	wordFeatures = {}
+
+	if boot and xVersion == 1:
+		index = 0;
+		for line in featureF:
+			line = line.split()
+			wordFeatures[entryIDs[index]] = []
+			for tok in line:
+				if tok[0] == 'F':
+					wordFeatures[entryIDs[index]].append(tok)
+
+			index += 1
+
+	# Go back to the beginning of the file
+	featureF.seek(0)	
+
 	index = 0
 	# read each line, each of which is a document
 	for line in featureF:
 		line = line.rstrip()
 		preCT = [0.0] * 10
 
+		nWords = {}
+		numNeighbors = 0
+
 		# tally the labels of your neighbors
 		# TODO weight them by something? (number of citations they have)
 		if cited.has_key(entryIDs[index]):
 			for neighbor in cited[entryIDs[index]]:
+				numNeighbors += 1
+				if wordFeatures.has_key(neighbor):
+					for word in wordFeatures[neighbor]:
+						if nWords.has_key(word):
+							nWords[word] = nWords[word] + 0.1
+						else:
+							nWords[word] = 0.1
+
 				if predictions.has_key(neighbor):
 					preCT[predictions[neighbor]] = preCT[predictions[neighbor]] + 1
 
 		if citing.has_key(entryIDs[index]):
 			for neighbor in citing[entryIDs[index]]:
+				numNeighbors += 1
+				if wordFeatures.has_key(neighbor):
+					for word in wordFeatures[neighbor]:
+						if nWords.has_key(word):
+							nWords[word] = nWords[word] + 0.1
+						else:
+							nWords[word] = 0.1
+
 				if predictions.has_key(neighbor):
 					preCT[predictions[neighbor]] = preCT[predictions[neighbor]] + 1
 
+		if len(nWords) > 0:
+			for word in nWords:
+				line = line + ' N' + word + ' ' + str(nWords[word])
 
 		# normalize and add to feature vector
 		total = sum(preCT)
@@ -57,7 +96,8 @@ def stackFeatures(coraData, featureFile, predictFile, outputFile, xVersion):
 			#	pdb.set_trace()
 
 			for label in range(len(preCT)):
-				preCT[label] = round(preCT[label] / float(total), 10)
+				#preCT[label] = round(preCT[label] / float(total), 10) + 1
+				preCT[label] = 1.0
 				if preCT[label] > 0:
 					line = line + ' L' + str(label) + 'X' + str(xVersion) + ' ' + str(preCT[label])
 
@@ -131,6 +171,7 @@ def initFeatures(citeFile, contentFile, outputFile):
 			# add Fi 1.0
 			if int(toks[i]) != 0:
 				features += ' F' + str(i) + ' ' + toks[i] + '.0'
+				#features += ' F' + str(i) + ' 0.1'
 
 		# write this feature to a file
 		outputF.write(features)
