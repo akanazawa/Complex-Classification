@@ -76,53 +76,68 @@ def trainMegam(fin, fout):
         
         
 def main():
-    DATADIR = 'data/'
-    K = 10
-    trainF = DATADIR+'train.content'
-    testF = DATADIR+'test.content'
-    # train
-    classifiers, trainErrors = stackTrain(K, trainF, DATADIR)
-    # test
-    Ys, testErrors = stackTest(classifiers, K, testF, DATADIR)
+    # DATADIR = 'data/'
+    # K = 6
+    # trainF = 'crossValidate/d2R.content'#DATADIR+'train.content'
+    # testF = 'crossValidate/d2.content'#DATADIR+'test.content'
+    # # train
+    # classifiers, trainErrors = stackTrain(K, trainF, DATADIR)
+    # # test
+    # Ys, testErrors = stackTest(classifiers, K, testF, DATADIR)
 
-    print "training errors: " + repr(trainErrors)
-    print "test errors: " + repr(testErrors) 
-    pdb.set_trace()
-    plot(range(K), trainErrors, 'r*-')
-    hold(True)
-    plot(range(K), testErrors, 'b*-')
-    title('training error vs test error')
-    show()
-   # cross validate
-    # print "**********start cross validation ****"
-    # tic = time.clock()
-    # blah =  crossValidate()
-    # toc = time.clock()
-    # print " took " + repr(toc-tic)
-    # return blah
+    # print "training errors: " + repr(trainErrors)
+    # print "test errors: " + repr(testErrors) 
+    # pdb.set_trace()
+    # plot(range(1,K+1), trainErrors, 'r*-')
+    # hold(True)
+    # plot(range(1,K+1), testErrors, 'b*-')
+    # title('training error vs test error')
+    # ylabel('error')
+    # xlabel('K, number of layers')
+    # legend(('training error', 'test error'))
+    # show()
+#   cross validate
+    print "**********start cross validation ****"
+    tic = time.clock()
+    blah =  crossValidate()
+    toc = time.clock()
+    print " took " + repr(toc-tic)
+    return blah
 
 def crossValidate():
-    possibleStacks = [1,2,3,4,5]
+    possibleStacks = [1,2,3,4,5,6,7]
     DIR = "crossValidate/"
     #this is 3 folds, data was seperated before hand. this list saves tuples of form: (trainContentFileName, tessContentFileName)
     crossFiles = [(DIR+'d1R.content', DIR+'d1.content'),  (DIR+'d2R.content', DIR+'d2.content'), (DIR+'d3R.content', DIR+'d3.content')]
     bestErrorAndK = (float('inf'), -1)
+    allTestErr = []
+    allTrainErr = []
     for k in possibleStacks: #for all possible hyperparam
         errs = []
+        trainErrs = []
         for i in range(0,3): #try on all crossfold sets
            trainContent = crossFiles[i][0]
            testContent = crossFiles[i][1]
            classifiers, trainErrors = stackTrain(k,trainContent, DIR)
            foo, err = stackTest(classifiers, k, testContent, DIR)
            errs.append(err)
-        
+           trainErrs.append(trainErrors)
         # pdb.set_trace()
         avgErr = mean(errs)
+        allTestErr.append(avgErr)
+        allTrainErr.append(mean(trainErrs))
         print "avgErr of k=%d on holdout %d was %f" %(k, i, avgErr)
         if avgErr < bestErrorAndK[0]:
           bestErrorAndK = (avgErr,k) #update if better
            
     print "bestError was %f with K %d"% bestErrorAndK
+
+    plot(possibleStacks, allTestErr, 'r*-')
+    hold(True)
+    plot(possibleStacks, allTrainErr, 'b*-')
+    title('training error vs test error')
+    show()
+
     return bestErrorAndK
 if __name__ == "__main__":
     main()
