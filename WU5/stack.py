@@ -76,33 +76,32 @@ def trainMegam(fin, fout):
         
         
 def main():
-    # DATADIR = 'data/'
-    # K = 6
-    # trainF = 'crossValidate/d2R.content'#DATADIR+'train.content'
-    # testF = 'crossValidate/d2.content'#DATADIR+'test.content'
-    # # train
-    # classifiers, trainErrors = stackTrain(K, trainF, DATADIR)
-    # # test
-    # Ys, testErrors = stackTest(classifiers, K, testF, DATADIR)
+    DATADIR = 'data/'
+    K = 6
+    trainF = 'crossValidate/d2R.content'DATADIR+'train.content'
+    testF = 'crossValidate/d2.content'#DATADIR+'test.content'
+    # train
+    classifiers, trainErrors = stackTrain(K, trainF, DATADIR)
+    # test
+    Ys, testErrors = stackTest(classifiers, K, testF, DATADIR)
 
-    # print "training errors: " + repr(trainErrors)
-    # print "test errors: " + repr(testErrors) 
-    # pdb.set_trace()
-    # plot(range(1,K+1), trainErrors, 'r*-')
-    # hold(True)
-    # plot(range(1,K+1), testErrors, 'b*-')
-    # title('training error vs test error')
-    # ylabel('error')
-    # xlabel('K, number of layers')
-    # legend(('training error', 'test error'))
-    # show()
+    print "training errors: " + repr(trainErrors)
+    print "test errors: " + repr(testErrors) 
+    pdb.set_trace()
+    plot(range(1,K+1), trainErrors, 'r*-')
+    hold(True)
+    plot(range(1,K+1), testErrors, 'b*-')
+    title('training error vs test error')
+    ylabel('error')
+    xlabel('K, number of layers')
+    legend(('training error', 'test error'))
+    show()
 #   cross validate
-    print "**********start cross validation ****"
-    tic = time.clock()
-    blah =  crossValidate()
-    toc = time.clock()
-    print " took " + repr(toc-tic)
-    return blah
+    # print "**********start cross validation ****"
+    # tic = time.clock()
+    # blah =  crossValidate()
+    # toc = time.clock()
+    # print " took " + repr(toc-tic)
 
 def crossValidate():
     possibleStacks = [1,2,3,4,5]
