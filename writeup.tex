@@ -33,11 +33,16 @@ If we start at 0, we can find the global minimum, but if we start at
 Output:
 \begin{verbatim}
 >>> gd.gd(f, derF, 0, 10, 0.2)
-(-0.45385351939658519, array([ 0 -0.72244765, -0.84494752, -0.88472033, -0.88650671,-0.88651822, -0.88651823, -0.88651823, -0.88651823, -0.88651823, -0.88651823]))
+(-0.45385351939658519, array([ 0 -0.72244765, 
+ -0.84494752, -0.88472033, -0.88650671, 
+ -0.88651822, -0.88651823, -0.88651823, 
+ -0.88651823, -0.88651823, -0.88651823]))
 >>> gd.gd(f, derF, 1, 10, 0.2)
-(1.3577434052579487, array([  1.22464680e-16, 4.52961014e-02,
-2.50055080e-02, 2.00175811e-02, 1.99477186e-02, 1.99477147e-02,
-1.99477147e-02, 1.99477147e-02, 1.99477147e-02, 1.99477147e-02, 1.99477147e-02]))
+(1.3577434052579487, 
+ array([  1.22464680e-16, 4.52961014e-02,
+ 2.50055080e-02, 2.00175811e-02, 1.99477186e-02, 
+ 1.99477147e-02, 1.99477147e-02, 1.99477147e-02, 
+ 1.99477147e-02, 1.99477147e-02, 1.99477147e-02]))
 \end{verbatim}
 The first run finds the global minimum, but the second one
 doesn't. (the first value in the ouptut of gd is the solution it found)
@@ -51,7 +56,7 @@ doesn't. (the first value in the ouptut of gd is the solution it found)
 \subsection{WU4}
 \textsf{What are the five features with largest positive weight and what
 are the five features with largest negative weight? Do these seem "right"
-based on the task?}\\
+based on the task?}
 
 \begin{enumerate}
  \item motif -1.21427941322326660156
@@ -100,91 +105,119 @@ If I use a depth 10 tree, I get a test error of 20.53\%, (0.463\%
 improvement).
 
 \subsection{WU6}
-\textsf{}\\
+\textsf{}
 
 \subsection{WU7}
-\textsf{}\\
+\textsf{}
 
 \section{Reductions for Multiclass Classification}
 \subsection{WU8}
-\textsf{}\\
+\textsf{}
 
 \subsection{WU9}
-\textsf{}\\
+\textsf{}
 \pagebreak
-\subsection{Ranking or Collective Classification}
+\subsection{Collective Classification}
 \subsection{WU10b}
-We chose collective classification. 
+\textsf{Plot the accuracy of your classifier as a function
+  of the number of levels in the stack. Do you observe that stacking
+  helps? I.e., does some layer >1 perform better than layer 1? If not,
+  perhaps you're not using sufficiently helpful features between the
+  layers. Does the stack ever overfit? Plot your training error versus
+  your test error as a function of the number of layers, and if you
+  observe massive overfitting, you might need to do cross-validation
+  to attenuate this. Report on your experience.}\\
 
-We used the cora dataset (\url{www.research.whizbang.com/data}), which is a collection of
-2708 Machine Learning papers. The papers are classified into one of the seven
-classes (Case Based, Genetic Algorithms, Neural Networks,
+We used the Cora dataset \footnote{\url{www.research.whizbang.com/data}}, which is a collection of
+2708 Machine Learning papers, each falling into one of seven
+classes; Case Based, Genetic Algorithms, Neural Networks,
 Probabilistic Methods, Reinforcement Learning, Rule Learning,
-Theory). The data is represented by 1433 unique words.
-The cora dataset also comes with the citation graph of the papers
-which we use as edges (links) between documents. There are total of
-5429 directonal links.
+and Theory. The data is for each document contains binary features representing
+the presence of 1433 unique words in the text. The cora dataset 
+also comes with the citation graph, 
+which contains 5429 driectional links between the documents.
 
-For collective classification, the original feature we used was a
-vector indicating the ID of the word in the vocabulary that is present
-in the paper.
+For basic training and testing, we randomly selected 80\% of documents (2150) 
+for training data, and the remaining 20\% were used for testing data (550).
+For cross validation we used a three-fold approach and randomly separated 
+the data into three equal groupd of 900 documents. 
+We reduced the raw binary feature vectors for processing with megam
+by removing the unnecessary zero valued features, and those remaining 
+were denoted with indices, identifying which words were present in each document.
 
-In each of the stacking process, for each document we counted how many
-neighbors of the document were classified as each possible class,
-normalized the counts, and added those values as new features. i.e. if
-document A linked to document B, C, D, and E, which were classified as
-class 4, 2 and 2, 3 respectively by the previous classifier, our new feature would add the
-information that 50\% of A's neighbors were class 2, and 25\% class 4
-and 3. 
+In each stacking step, for each document we found how many of its
+neighbors were labelled for each class using the previous model, and added 
+those the values which were non-zero as new features. Using this approach,
+at most one feature for each class would be added at each stacking step.
+Finding good representations for these values is a major problem in itself,
+and we found that small changes in the way each feature's value was normalized
+could greatly impact the prediction results. This is likely because the word
+features are all binary, either 0 or 1, so normalizing the collective features
+could reduce the impact that they have on the predictions.
 
-We randomly selected 80\% of documents (2150) to use as training data
-and the remaining 20\% as testing data (550).\\
+We tried various approaches such as reducing the word feature 
+values, using binary features for the collective features, or normalizing 
+and multiplying the collective values by some constant. However, we found
+that the straightforward approach of normalizing the values to 1 yielded 
+the best results. As an example, if document A linked to documents 
+B, C, D, and E, which were classified as classes 4, 2, 2, and 3
+respectively then the added features would represent that 50\% of A's neighbors 
+were class 2, 25\% class 4, and the remaining 25\% class 3. 
 
-\textbf{Results:} With 6-layers,we get \% accuracy on the testing set
-and \% on the training set. With a single layer (no-stacking), we get
-\% accuracy and \% on the training set.
+We also experimented with bootstrapping features as described in previous work
+\footnote{Sen, Namata, et al. 2008. Collective classification in Network Data}
+with the Cora dataset. In the bootstrapping process, the binary word features from
+each document's neighbors are accumulated and added as new neighborhood word features.
+However, we found that bootstrapping hurt the accuracy of the model on our, so this
+feature was not used in our final approach.
 
-We have noticed that stacking does seem to help, but depends heavily on
-the data. If the documents in training data does not link to many documents
-within the training set, the information about prior predictions of the
-neighbors is not very informative. (This happens because we ignore all
-the edges that connect documents in the training set to test set.)
-But if the training set has many effective links (links to those in
-the same set), stacking becomes effective and the training
-error decreases as the number of layers go up(up to certain point).
+The success of the stacking approach on the Cora dataset seems to be heavily
+dependent on the way the dataset is separated. It is possible that in some 
+cases splitting the data breaks many important links between documents,
+consequently reducing the relevant information stacking might provide. 
+With some random separations of test and training data stacking did not help
+the test or training performance, as shown in Figure \ref{figures:f1} where
+stacking does not improve the training performance, although it does improve
+test performance. In another random separation of training and testing data 
+shown in Figure \ref{figures:f2}, we see that stacking improves the accuracy 
+in both cases. To attenuate these affects we performed cross validation and 
+found accuracy as shown in Figure \ref{figures:f3}. For all of these cases we 
+see that when stacking does help at some layer, and overfitting is often observed at a later layer.
 
-Figure 2 is the plot of our training error versus your test error as a
-function of the number of layers. This is when the stacking helps and
-we see a general trend of overfitting.
-\begin{figure}[h!]
-  \caption{WU10b: Training error vs test error as a fn of the number of layers }
+\begin{figure}[!ht]
+  \caption{Training error and test error vs stacking layers}
   \centering
-%   \includegraphics[width=5in]{WU5/traintest.png}
+  \includegraphics[width=4.5in]{WU5/trainingvstestD3R.png}
+  \label{figures:f1}
 \end{figure}
 
-So in Figure 2 the algorithm was effective, but when we generate
-another set of test/training data randomly, we observed that sometimes
-training error goes up as the number of layers increase. This can be
-seen in figure 3.
-\begin{figure}[h!]
-  \caption{Training error vs test error when the training data has
-    less links}
+\newpage
+
+\begin{figure}[!ht]
+  \caption{Training error and test error vs stacking layers}
   \centering
-%   \includegraphics[width=5in]{WU5/traintest.png}
+  \includegraphics[width=4.5in]{WU5/trainingvstestD2R.png}
+  \label{figures:f2}
 \end{figure}
 
-From the observations, we can see that it's important to divide the
-data carefully so that the ``connectivity'' of documents in the
-training set is similar to that of the test set, and that we have
-enough edges to make stacking effective. 
+\begin{figure}[!ht]
+  \caption{Cross validation training error and test error vs stacking layers}
+  \centering
+  \includegraphics[width=4.5in]{WU5/CrossValidation.png}
+  \label{figures:f3}
+\end{figure}
 
-\textbf{Does the stack ever overfit?}\\
-When stacking helps, We do observe the general trend of overfitting
-(figure 2).
+\newpage
 
-So we ran 3-fold cross-validation, testing possible number of layers
-from 1 to 10, and got that $K=\mathbf{??}$ works the best with average error on
-the hold out sets \textbf{??}\%.
- 0.241407 with K 5
+Our stacking approaches consistently yielded just a few percentage points of
+increased accuracy on the Cora dataset as opposed to the accuracy without any stacking. 
+Comparing our results with those in previous work with Cora data \footnotemark[\value{footnote}]
+we found similar error rates with models not using stacking, but previos work found as much as
+12\% increase in accuracy using stacking where we only gained as much as 2\%. It may be that the
+feature values we used could be improved, that with further investigation bootstrapping might yield
+much better results, or we might try increasing the collective degree of each stacking step by 
+looking at neighbors of neighbors. Overall, stacking has the potential to yield useful information
+that can improve classification, but we found that performance is highly dependent on how that data is represented and whether
+the connections are preserved when the data is mined.
 
 \end{document}
