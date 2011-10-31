@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.9.14)  31 OCT 2011 11:09
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.27)  31 OCT 2011 14:21
 entering extended mode
  %&-line parsing enabled.
 **writeup.tex
@@ -208,7 +208,7 @@ LaTeX Font Info:    ... okay on input line 7.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
 LaTeX Font Info:    ... okay on input line 7.
 
-(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+(/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count103
 \scratchdimen=\dimen115
@@ -267,87 +267,70 @@ Underfull \hbox (badness 10000) in paragraph at lines 87--88
  []
 
 
-LaTeX Warning: Reference `tables:WU4Pos' on page 2 undefined on input line 90.
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
 
-
-LaTeX Warning: Reference `tables:WU4Neg' on page 2 undefined on input line 90.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+ []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 167--168
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
 
  []
 
-[3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 229--230
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+
+ []
+
+[4] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 249--250
 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 231.
+(Font)              <9> on input line 251.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 231.
-[5]
-
-LaTeX Warning: Reference `figures:f1' on page 6 undefined on input line 279.
-
-
-LaTeX Warning: Reference `figures:f2' on page 6 undefined on input line 282.
-
-
-LaTeX Warning: Reference `figures:f3' on page 6 undefined on input line 284.
-
-<WU5/trainingvstestD3R.png, id=107, 586.8324pt x 442.2924pt>
+(Font)              <5> on input line 251.
+[6] <WU5/trainingvstestD3R.png, id=115, 586.8324pt x 442.2924pt>
 File: WU5/trainingvstestD3R.png Graphic file (type png)
 
-<use WU5/trainingvstestD3R.png> [6 <./WU5/trainingvstestD3R.png>]
-<WU5/trainingvstestD2R.png, id=118, 586.8324pt x 442.2924pt>
+<use WU5/trainingvstestD3R.png> [7 <./WU5/trainingvstestD3R.png>]
+<WU5/trainingvstestD2R.png, id=127, 586.8324pt x 442.2924pt>
 File: WU5/trainingvstestD2R.png Graphic file (type png)
 
 <use WU5/trainingvstestD2R.png>
-<WU5/CrossValidation.png, id=119, 586.8324pt x 442.2924pt>
+<WU5/CrossValidation.png, id=128, 586.8324pt x 442.2924pt>
 File: WU5/CrossValidation.png Graphic file (type png)
 
-<use WU5/CrossValidation.png> [7 <./WU5/trainingvstestD2R.png> <./WU5/CrossVali
-dation.png>] [8] (./writeup.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+<use WU5/CrossValidation.png> [8 <./WU5/trainingvstestD2R.png> <./WU5/CrossVali
+dation.png>] [9] (./writeup.aux) ) 
 Here is how much of TeX's memory you used:
- 5269 strings out of 495061
- 80090 string characters out of 1182621
- 152688 words of memory out of 3000000
- 8363 multiletter control sequences out of 15000+50000
- 10958 words of font info for 39 fonts, out of 3000000 for 9000
+ 5266 strings out of 495061
+ 80017 string characters out of 1182621
+ 153201 words of memory out of 3000000
+ 8362 multiletter control sequences out of 15000+50000
+ 10650 words of font info for 38 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 44i,8n,42p,410b,321s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{subsection.3.4} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.3.3} has been referenced but does not ex
-ist, replaced by a fixed one
-
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share
-/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/
-type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-texlive/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt
-10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on writeup.pdf (9 pages, 256036 bytes).
+ 44i,8n,42p,297b,319s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/
+amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
+/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmss
+10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texm
+f-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/f
+onts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on writeup.pdf (10 pages, 248967 bytes).
 PDF statistics:
- 185 PDF objects out of 1000 (max. 8388607)
- 35 named destinations out of 1000 (max. 500000)
+ 189 PDF objects out of 1000 (max. 8388607)
+ 34 named destinations out of 1000 (max. 500000)
  128 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -96,7 +96,7 @@ The features associated with windows include ``motif'', ``window'', and ``x''
 which makes sense since the motif is a GUI widget toolkit under the X Window System. 
 Therefore, it appears that the largest weights have a understandable meaning.
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \begin{center}
     \caption{The five features with the largest positive weights.}
     \begin{tabular}{| l | l |}
@@ -112,7 +112,7 @@ Therefore, it appears that the largest weights have a understandable meaning.
 \end{center}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
 \begin{center}
     \caption{The five features with the largest negative weights.}
     \begin{tabular}{| l | l |}
@@ -133,7 +133,8 @@ Therefore, it appears that the largest weights have a understandable meaning.
   features from the logistic regression model? Which features seem
   "better" and why? If you use a depth 10 tree, how well do you do on
   test data?}\\
-\begin{figure}[h!]
+
+\begin{figure}[!ht]
   \caption{WU5: The tree}
   \centering
 %   \includegraphics[width=5in]{wu5_tree.pdf}
@@ -166,9 +167,20 @@ improvement).
 on the two tasks (text categorization versus digit recognition), 
 which one(s) perform best on one and which on the other? Why?}\\
 
-Ask Hal.
+The performances of each algorithm on the text and digit classification 
+tasks are shown in Table \ref{tables:WU7}. We see that for text 
+classification FastDT and libSVM perform similarly, while Megam achieves a 
+few extra percentage points for accuracy. For digit classification Megam and 
+libSVM perform identically, and with higher accuracy than FastDT. One 
+explanation for this difference would be that the text classification data 
+can be separated linearly using a few basic features so all algorithms 
+perform similarly, but this approach to digit classification uses very fine 
+grained pixel level features which are not as useful for the decision tree 
+model. If we used high level image features, like histograms, SIFT, or 
+wavelets, we might find that the decision tree would be on par with
+its competitors.
 
-\begin{table}
+\begin{table}[!ht]
 \begin{center}
     \caption{Accuracy of Algorithms for Text and Digit Classification}
     \begin{tabular}{ | l | l | l |} \hline
@@ -177,13 +189,20 @@ Ask Hal.
     FastDT    & 79.5\% & 88.0\% \\ \hline
     libSVM    & 78.5\% & 93.0\% \\ \hline
     \end{tabular}
+    \label{tables:WU7}
 \end{center}
 \end{table}
 
 \pagebreak
 \section{Reductions for Multiclass Classification}
 \subsection{WU8}
-\textsf{For each of the three reductions, run your classifier on the text classification problem with four classes. For the tree reduction, make the first split {graphics,windows} versus {baseball,hockey}. Tune your hyperparameters as well as you can and report the best results you can for each of the three. Which one wins? Which one was easiest to tune hyperparameters for?}
+\textsf{For each of the three reductions, run your classifier on the
+text classification problem with four classes. For the tree reduction, 
+make the first split {graphics,windows} versus {baseball,hockey}. 
+Tune your hyperparameters as well as you can and report the best 
+results you can for each of the three. Which one wins? Which one was 
+easiest to tune hyperparameters for?}\\
+
 We used megam to do all of the reductions.
 For tree reduction, the best result we got was 84.87\% with lambda
 $2^2$. We tested all the parameters between $2^{-5}$ to $2^{5}$. For
@@ -196,7 +215,8 @@ because we used megam, the only thing we had to tune was the lambda.
   split is {graphics,baseball} versus {windows,hockey}. (Thus, the
   hard decision is first, and the easy decisions come second.) Return
   hyperparameters well. Does this work better or worse than the
-  previous split, and why?}
+  previous split, and why?}\\
+
 With this split, the best result we got was 84.43\% with lambda
 $2^1$. The same values of lambda was used to tune( $2^{-5}$ to $2^{5}$
 The performance of this tree depends on the lambda  of course, but in
