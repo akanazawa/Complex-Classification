@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.27)  31 OCT 2011 18:15
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.27)  31 OCT 2011 18:37
 entering extended mode
  %&-line parsing enabled.
 **writeup.tex
@@ -293,19 +293,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 229--230
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 247--248
+Underfull \hbox (badness 10000) in paragraph at lines 245--246
 
  []
 
 [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 279--280
+Underfull \hbox (badness 10000) in paragraph at lines 277--278
 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 281.
+(Font)              <9> on input line 279.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 281.
+(Font)              <5> on input line 279.
 [8] <WU5/trainingvstestD3R.png, id=142, 586.8324pt x 442.2924pt>
 File: WU5/trainingvstestD3R.png Graphic file (type png)
 
@@ -340,7 +340,7 @@ sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/te
 xmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/
 fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1
 /public/amsfonts/cm/cmtt9.pfb>
-Output written on writeup.pdf (12 pages, 302023 bytes).
+Output written on writeup.pdf (12 pages, 300994 bytes).
 PDF statistics:
  221 PDF objects out of 1000 (max. 8388607)
  38 named destinations out of 1000 (max. 500000)

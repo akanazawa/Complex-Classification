@@ -136,7 +136,7 @@ Therefore, it appears that the largest weights have some understandable meanings
 \end{table}
 
 \subsection{WU5}
-\textsf{ Draw the tree. How do the selected features compare to the
+\textsf{Draw the tree. How do the selected features compare to the
   features from the logistic regression model? Which features seem
   "better" and why? If you use a depth 10 tree, how well do you do on
   test data?}\\
@@ -144,7 +144,7 @@ Therefore, it appears that the largest weights have some understandable meanings
 \begin{figure}[!ht]
   \caption{WU5: The tree}
   \centering
-  \includegraphics[width=4.5in]{wu5_tree.pdf}
+  \includegraphics[width=4.75in]{wu5_tree.pdf}
 \end{figure}
 
 Features can be considered ``better'' if they are decisive, 
@@ -179,13 +179,12 @@ For libsvm, use C values of $2^x,  -5 \leq x \leq 5$.
 Before actually running these experiments, what do you expect to happen? 
 What actually does happen?}\\
 
-\begin{figure}[h!]
-
+\begin{figure}[!ht]
   \centering
-  \includegraphics[width=5in]{WU6/learningCurve_FastDT.png}
-    \caption{WU6: Learning curve for FastDT, Depth from 1-20}
-  \end{figure}
-  
+  \includegraphics[width=4.5in]{WU6/learningCurve_FastDT.png}
+  \caption{WU6: Learning curve for FastDT, Depth from 1-20}
+\end{figure}
+
 The figure above shows the learningCurve for FastDT, where the blue curve is the the training error and red curve is the test error. I expected the training error reduce to a really small number with the increasing of the depth of the tree. The testing error will go down at the beginning and will go up later because of the overfitting. As shown in the figure, the plot is similar to what i expected.
 
 \subsection{WU7}
@@ -229,15 +228,20 @@ Tune your hyperparameters as well as you can and report the best
 results you can for each of the three. Which one wins? Which one was 
 easiest to tune hyperparameters for?}\\
 
+All reductions were done usign the Megam classifier. We tested all lambda values between $2^{-5}$ to $2^{5}$.
+For OVA, the best lambda value is 1 yielding accuracy 79.684\%. 
+For AVA, the best lambda value is 4 yielding accuracy 84.494\%. 
+For tree reduction, the best lambda value is 4, yielding accuracy 84.87\%.
+Tree does the best.
+We tested all the parameters between .
+
 We used megam to do all of the reductions.
 For tree reduction, the best result we got was 84.87\% with lambda
-$2^2$. We tested all the parameters between $2^{-5}$ to $2^{5}$. For
+$2^2$.  For
 the tree classifier, tuning the hyperparameter was easy, in fact tuning the
 hyperparameter for all of them was not a problem (?is this correct?)
 because we used megam, the only thing we had to tune was the lambda.
 
-For OVA, the best lambda value is 1. When lambda is 1, we get a error rate of 20.3165\%. For AVA, we get the best lambda value of 4, which result in an error rate of 15.506\%. For AVA and OVA, AVA wins.
- (?DO WE NEED TO TUNE PARAM FOR AVA OVA? I COULDN'T THINK OF ANY?) 
 
 
 \subsection{WU9}
@@ -253,18 +257,19 @@ The performance of this tree depends on the lambda  of course, but on
 average the first tree performs better than the second, with an average accuracy
 of 83.84\% compared to the second tree's average accuracy of 83.5\%. 
 
-The second tree is expected to do worse, because the first split at the root of the second tree is harder ({graphics,baseball}
-versus {windows,hockey}),
-and more mistakes will be made at the root. As expected the error rate of the second tree's root classifier
-using the best lamdba  on the test set is $203 / 1580 = 0.128481$, and that of the first tree's root classifier
-using the best lambda is $59 / 1580 = 0.0373418$.
-As you can see, the second tree's root classifier has lower accuracy
-than that of the first tree.
+The second tree is expected to do worse, because the first split at the root of 
+the second tree is harder ({graphics,baseball} versus {windows,hockey}),
+and we would expect that more mistakes could be made at the root. 
+Indeed, if we examine the performance for each type of tree using its best lamdba,
+the error rate of the second tree's root classifier,
+$203 / 1580 = 0.128481$, is higher than that of the first 
+tree's root classifier, which is $59 / 1580 = 0.0373418$.
 
-However the difference between the average perfomance of two trees is not very significant. This
- is because the decisions at the leaf level is easier for the second tree ({graphics} vs {baseball} and {windows} vs {hockey}),
-and that of the first tree is harder ({graphics} vs {windows} and {baseball} vs {hockey}). 
-So the two compensates. But since the decision at the root is critical, in general the first tree works better.
+However, the difference between the average perfomance of two trees is still
+not very significant. This might happen since the decisions at the leaf level
+are easier for the second tree, while those in the first tree are harder.
+So, to some degree, this compensates for the early errors in the second tree,
+but since the decision at the root is critical, the first tree works better in general.
 
 \pagebreak
 \section{Collective Classification}
@@ -282,7 +287,7 @@ We used the Cora dataset \footnote{\url{www.research.whizbang.com/data}}, which 
 2708 Machine Learning papers, each falling into one of seven
 classes; Case Based, Genetic Algorithms, Neural Networks,
 Probabilistic Methods, Reinforcement Learning, Rule Learning,
-and Theory. The data is for each document contains binary features representing
+and Theory. The data for each document contains binary features representing
 the presence of 1433 unique words in the text. The cora dataset 
 also comes with the citation graph, 
 which contains 5429 driectional links between the documents.
@@ -297,7 +302,7 @@ were denoted with indices, identifying which words were present in each document
 
 In each stacking step, for each document we found how many of its
 neighbors were labelled for each class using the previous model, and added 
-those the values which were non-zero as new features. Using this approach,
+those values which were non-zero as new features. Using this approach,
 at most one feature for each class would be added at each stacking step.
 Finding good representations for these values is a major problem in itself,
 and we found that small changes in the way each feature's value was normalized
@@ -310,7 +315,7 @@ values, using binary features for the collective features, or normalizing
 and multiplying the collective values by some constant. However, we found
 that the straightforward approach of normalizing the values to 1 yielded 
 the best results. As an example, if document A linked to documents 
-B, C, D, and E, which were classified as classes 4, 2, 2, and 3
+B, C, D, and E, which were previously classified with labels 4, 2, 2, and 3
 respectively then the added features would represent that 50\% of A's neighbors 
 were class 2, 25\% class 4, and the remaining 25\% class 3. 
 
@@ -318,8 +323,8 @@ We also experimented with bootstrapping features as described in previous work
 \footnote{Sen, Namata, et al. 2008. Collective classification in Network Data}
 with the Cora dataset. In the bootstrapping process, the binary word features from
 each document's neighbors are accumulated and added as new neighborhood word features.
-However, we found that bootstrapping hurt the accuracy of the model on our, so this
-feature was not used in our final approach.
+However, we found that bootstrapping hurt the accuracy of the model, so it 
+was not used in our final approach.
 
 The success of the stacking approach on the Cora dataset seems to be heavily
 dependent on the way the dataset is separated. It is possible that in some 
@@ -362,7 +367,7 @@ pp  \centering
 Our stacking approaches consistently yielded just a few percentage points of
 increased accuracy on the Cora dataset as opposed to the accuracy without any stacking. 
 Comparing our results with those in previous work with Cora data \footnotemark[\value{footnote}]
-we found similar error rates with models not using stacking, but previos work found as much as
+we found similar error rates with models not using stacking, but previous work found as much as
 12\% increase in accuracy using stacking where we only gained as much as 2\%. It may be that the
 feature values we used could be improved, that with further investigation bootstrapping might yield
 much better results, or we might try increasing the collective degree of each stacking step by 

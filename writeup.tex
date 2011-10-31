@@ -228,16 +228,14 @@ Tune your hyperparameters as well as you can and report the best
 results you can for each of the three. Which one wins? Which one was 
 easiest to tune hyperparameters for?}\\
 
-We used megam to do all of the reductions.
-For tree reduction, the best result we got was 84.87\% with lambda
-$2^2$. We tested all the parameters between $2^{-5}$ to $2^{5}$. For
-the tree classifier, tuning the hyperparameter was easy, in fact tuning the
-hyperparameter for all of them was not a problem (?is this correct?)
-because we used megam, the only thing we had to tune was the lambda.
-
-For OVA, the best lambda value is 1. When lambda is 1, we get a error rate of 20.3165\%. For AVA, we get the best lambda value of 4, which result in an error rate of 15.506\%. For AVA and OVA, AVA wins.
- (?DO WE NEED TO TUNE PARAM FOR AVA OVA? I COULDN'T THINK OF ANY?) 
-
+All reductions were done using the Megam classifier, 
+and the only hyperparameter was the lambda value,
+so tuning the hyperparameters was easy for all three.
+We tested lambda values between $2^{-5}$ to $2^{5}$.
+For OVA, the best lambda value was 1 yielding accuracy 79.684\%. 
+For AVA, the best lambda value was 4 yielding accuracy 84.494\%. 
+For tree reduction, the best lambda value is 4, yielding accuracy 84.87\%.
+Overall, the tree reduction method performed better than OVA and AVA.
 
 \subsection{WU9}
 \textsf{Change the structure of the tree classifier so that the first
