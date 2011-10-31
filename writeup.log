@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.27)  31 OCT 2011 18:37
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.27)  31 OCT 2011 19:00
 entering extended mode
  %&-line parsing enabled.
 **writeup.tex
@@ -261,72 +261,79 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 52.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 52.
-<wu5_tree.pdf, id=67, 794.97pt x 325.215pt>
+[1] <wu2.png, id=78, 586.8324pt x 442.2924pt>
+File: wu2.png Graphic file (type png)
+ <use wu2.png>
+Overfull \hbox (1.34999pt too wide) in paragraph at lines 85--86
+ [] 
+ []
+
+[2 <./wu2.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
+
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
+
+ []
+
+<wu5_tree.pdf, id=94, 794.97pt x 325.215pt>
 File: wu5_tree.pdf Graphic file (type pdf)
- <use wu5_tree.pdf> [1 <./wu5_tree.pdf>] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 94--95
+ <use wu5_tree.pdf>
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 142--143
-
- []
-
-File: wu5_tree.pdf Graphic file (type pdf)
-<use wu5_tree.pdf> [3]
-Underfull \hbox (badness 10000) in paragraph at lines 180--181
-
- []
-
-<WU6/learningCurve_FastDT.png, id=104, 578.16pt x 433.62pt>
+[4 <./wu5_tree.pdf>]
+<WU6/learningCurve_FastDT.png, id=112, 578.16pt x 433.62pt>
 File: WU6/learningCurve_FastDT.png Graphic file (type png)
 
-<use WU6/learningCurve_FastDT.png> [4]
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
+<use WU6/learningCurve_FastDT.png>
+Underfull \hbox (badness 10000) in paragraph at lines 200--201
 
  []
 
-[5 <./WU6/learningCurve_FastDT.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 229--230
+[5 <./WU6/learningCurve_FastDT.png>] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 245--246
+Underfull \hbox (badness 10000) in paragraph at lines 252--253
 
  []
 
-[6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 277--278
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 284--285
 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 279.
+(Font)              <9> on input line 286.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 279.
-[8] <WU5/trainingvstestD3R.png, id=142, 586.8324pt x 442.2924pt>
+(Font)              <5> on input line 286.
+[8] <WU5/trainingvstestD3R.png, id=144, 586.8324pt x 442.2924pt>
 File: WU5/trainingvstestD3R.png Graphic file (type png)
 
 <use WU5/trainingvstestD3R.png> [9 <./WU5/trainingvstestD3R.png>]
-<WU5/trainingvstestD2R.png, id=153, 586.8324pt x 442.2924pt>
+<WU5/trainingvstestD2R.png, id=155, 586.8324pt x 442.2924pt>
 File: WU5/trainingvstestD2R.png Graphic file (type png)
 
 <use WU5/trainingvstestD2R.png>
-<WU5/CrossValidation.png, id=154, 586.8324pt x 442.2924pt>
+<WU5/CrossValidation.png, id=156, 586.8324pt x 442.2924pt>
 File: WU5/CrossValidation.png Graphic file (type png)
 
 <use WU5/CrossValidation.png> [10 <./WU5/trainingvstestD2R.png> <./WU5/CrossVal
 idation.png>] [11] (./writeup.aux) ) 
 Here is how much of TeX's memory you used:
- 5281 strings out of 495061
- 80301 string characters out of 1182621
+ 5286 strings out of 495061
+ 80355 string characters out of 1182621
  153203 words of memory out of 3000000
- 8370 multiletter control sequences out of 15000+50000
+ 8374 multiletter control sequences out of 15000+50000
  10650 words of font info for 38 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 44i,8n,42p,415b,410s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,8n,42p,415b,335s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/publi
 c/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
 cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.
@@ -340,9 +347,9 @@ sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/te
 xmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/
 fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1
 /public/amsfonts/cm/cmtt9.pfb>
-Output written on writeup.pdf (12 pages, 300994 bytes).
+Output written on writeup.pdf (12 pages, 323561 bytes).
 PDF statistics:
- 221 PDF objects out of 1000 (max. 8388607)
+ 223 PDF objects out of 1000 (max. 8388607)
  38 named destinations out of 1000 (max. 500000)
- 138 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 143 words of extra memory for PDF output out of 10000 (max. 10000000)
 
