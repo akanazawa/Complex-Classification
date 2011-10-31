@@ -2,18 +2,41 @@
 
 \usepackage{graphicx}
 \usepackage{subfig,hyperref}
-
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \begin{document}
-\title{ML CS726 Fall'11 Project 2 Complex Classifiers}
-\author{Angjoo Kanazawa, Ran Liu, Austin Myers}
-\maketitle
+\pagenumbering{alph}
+\begin{titlepage}
+\begin{center}
 
+\textsc{\LARGE CMSC726 Machine Learning}\\[1.5cm]
+
+\textsc{\Large Project 2}\\[0.5cm]
+
+\HRule \\[0.5cm]
+
+{ \huge \bfseries Complex Classification}\\[0.4cm]
+
+\HRule \\[1.5cm]
+
+{\large Angjoo Kanazawa, Ran Liu, and Austin Myers}
+
+\vfill
+
+{\large November 1, 2011}
+
+\end{center}
+\end{titlepage}
+%\title{ML CS726 Fall'11 Project 2 Complex Classifiers}
+%\author{Angjoo Kanazawa, Ran Liu, Austin Myers}
+%\maketitle
+\pagenumbering{arabic}
 
 \section{Gradient Descent and Linear Classification}
 \subsection{WU1}
 \textsf{Find a few values of step size where it converges and a few
   values where it diverges. Where does the threshold seem to be?}\\
+
 It depends on what the number of iteration is, but with 100
 iterations, from step 0.1 to 6.5 it finds a solution close to
 0. But right after 6.6, it starts to diverge and for any value after
@@ -25,6 +48,7 @@ iterations, from step 0.1 to 6.5 it finds a solution close to
   runs of gd, one where it gets caught in a local minimum and one
   where it manages to make it to a global minimum. (Use different
   starting points to accomplish this.)}\\
+
 Using $f(x) = sin(\pi x) + x^2/2$, $f'(x) = \pi cos(\pi x) + x$, and
 10 iterations, the
 global minimum happens at $x\approx -0.45385$.
@@ -44,35 +68,65 @@ Output:
  1.99477147e-02, 1.99477147e-02, 1.99477147e-02, 
  1.99477147e-02, 1.99477147e-02, 1.99477147e-02]))
 \end{verbatim}
+
 The first run finds the global minimum, but the second one
 doesn't. (the first value in the ouptut of gd is the solution it found)
-\subsection{WU3}
-\textsf{Why does the logistic classifier produce much larger weights
-  than the others, even though they all get basically the same
-  classification performance?}\\ Don't have to answer this.
+
+\subsection{WU3 - Not Required}
+%\textsf{Why does the logistic classifier produce much larger weights
+%  than the others, even though they all get basically the same
+%  classification performance?}\\ Don't have to answer this.
+
+\newpage
 
 \section{Warm Up with ML Tools}
 \label{sec:warmup}
 \subsection{WU4}
 \textsf{What are the five features with largest positive weight and what
 are the five features with largest negative weight? Do these seem "right"
-based on the task?}
+based on the task?}\\
 
-\begin{enumerate}
- \item motif -1.21427941322326660156
- \item window -1.15418136119842529297
- \item server -0.94833439588546752930
- \item list -0.89077484607696533203
- \item x -0.86568439006805419922
-\end{enumerate}
+The features with the largest positive and negative weights are shown in 
+Table \ref{tables:WU4Pos} and Table \ref{tables:WU4Neg} respectively. 
+Some features, like the ``xx'' feature, do not seem to have a understandable 
+meaning. However, many features do seem "right" according to their field.
+The features corresponding to graphics documents include ``graphics'', 
+``image(s)'', and ``card'' which all are easily related to the topic. 
+The features associated with windows include ``motif'', ``window'', and ``x''
+which makes sense since the motif is a GUI widget toolkit under the X Window System. 
+Therefore, it appears that the largest weights have a understandable meaning.
 
-\begin{enumerate}
- \item graphics 1.09135174751281738281
- \item images 0.72243607044219970703
- \item image 0.72001230716705322266
- \item card 0.71239823102951049805
- \item xx 0.69124054908752441406
-\end{enumerate}
+\begin{table}[h!]
+\begin{center}
+    \caption{The five features with the largest positive weights.}
+    \begin{tabular}{| l | l |}
+    \hline
+    Feature  & Weight \\ \hline
+    graphics & 1.0918 \\ \hline %Raw 1.09135174751281738281
+    images   & 0.7224 \\ \hline %Raw 0.72243607044219970703
+    image    & 0.7200 \\ \hline %Raw 0.72001230716705322266
+    card     & 0.7124 \\ \hline %Raw 0.71239823102951049805
+    xx       & 0.6912 \\ \hline %Raw 0.69124054908752441406
+    \end{tabular}
+    \label{tables:WU4Neg}
+\end{center}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+    \caption{The five features with the largest negative weights.}
+    \begin{tabular}{| l | l |}
+    \hline
+    Feature &  Weight \\ \hline
+    motif   & -1.2143 \\ \hline %Raw -1.21427941322326660156
+    window  & -1.1542 \\ \hline %Raw -1.15418136119842529297
+    server  & -0.9483 \\ \hline %Raw -0.94833439588546752930
+    list    & -0.8908 \\ \hline %Raw -0.89077484607696533203
+    x       & -0.8657 \\ \hline %Raw -0.86568439006805419922
+    \end{tabular}
+    \label{tables:WU4Pos}
+\end{center}
+\end{table}
 
 \subsection{WU5}
 \textsf{ Draw the tree. How do the selected features compare to the
@@ -108,16 +162,34 @@ improvement).
 \textsf{}
 
 \subsection{WU7}
-\textsf{}
+\textsf{Comparing the performance of the three different algorithms 
+on the two tasks (text categorization versus digit recognition), 
+which one(s) perform best on one and which on the other? Why?}\\
 
+Ask Hal.
+
+\begin{table}
+\begin{center}
+    \caption{Accuracy of Algorithms for Text and Digit Classification}
+    \begin{tabular}{ | l | l | l |} \hline
+    Algorithm & Text   & Digit \\ \hline
+    Megam     & 82.3\% & 93.0\% \\ \hline
+    FastDT    & 79.5\% & 88.0\% \\ \hline
+    libSVM    & 78.5\% & 93.0\% \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
+\pagebreak
 \section{Reductions for Multiclass Classification}
 \subsection{WU8}
 \textsf{}
 
 \subsection{WU9}
 \textsf{}
+
 \pagebreak
-\subsection{Collective Classification}
+\section{Collective Classification}
 \subsection{WU10b}
 \textsf{Plot the accuracy of your classifier as a function
   of the number of levels in the stack. Do you observe that stacking
@@ -185,7 +257,7 @@ found accuracy as shown in Figure \ref{figures:f3}. For all of these cases we
 see that when stacking does help at some layer, and overfitting is often observed at a later layer.
 
 \begin{figure}[!ht]
-  \caption{Training error and test error vs stacking layers}
+  \caption{Training error and test error vs stacking layers.}
   \centering
   \includegraphics[width=4.5in]{WU5/trainingvstestD3R.png}
   \label{figures:f1}
@@ -194,14 +266,14 @@ see that when stacking does help at some layer, and overfitting is often observe
 \newpage
 
 \begin{figure}[!ht]
-  \caption{Training error and test error vs stacking layers}
+  \caption{Training error and test error vs stacking layers.}
   \centering
   \includegraphics[width=4.5in]{WU5/trainingvstestD2R.png}
   \label{figures:f2}
 \end{figure}
 
 \begin{figure}[!ht]
-  \caption{Cross validation training error and test error vs stacking layers}
+  \caption{Cross validation training error and test error vs stacking layers.}
   \centering
   \includegraphics[width=4.5in]{WU5/CrossValidation.png}
   \label{figures:f3}
