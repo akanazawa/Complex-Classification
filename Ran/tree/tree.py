@@ -20,7 +20,7 @@ def main():
 	bestSecond = (float("-inf"), -100)
 	scoreFirst = []
 	scoreSecond = []
-	for i in range(-6, 3): # try many lambda, see which one's the best
+	for i in range(-5, 6): # try many lambda, see which one's the best
 		lambda_value = 2**i
 		print "\n**********first tree using lambda 2^%f**********"%log(lambda_value, 2)
 		classifiers = trainFirstTree(lambda_value)
@@ -311,14 +311,6 @@ def testMegam(fModel,ftest,fout):
     err = float(stderr.split(' ')[3]) # num of incorrect classifications
     print "num error:",err
     return err
-
-# def compare(results,labels):
-# 	count=0
-# 	for i in range(len(results)):
-# 		if not results[i] == labels[i]:
-# 			count = count + 1
-# 	error = float(float(count)/float(len(results)))
-# 	sys.stderr.write('done\nError=%f/%f=%f'%(count,len(results),error))
 
 if __name__ == "__main__":
     main()

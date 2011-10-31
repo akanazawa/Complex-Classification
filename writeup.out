@@ -1,7 +1,7 @@
 \BOOKMARK [1][-]{section.1}{Gradient Descent and Linear Classification}{}
 \BOOKMARK [2][-]{subsection.1.1}{WU1}{section.1}
 \BOOKMARK [2][-]{subsection.1.2}{WU2}{section.1}
-\BOOKMARK [2][-]{subsection.1.3}{WU3}{section.1}
+\BOOKMARK [2][-]{subsection.1.3}{WU3 - Not Required}{section.1}
 \BOOKMARK [1][-]{section.2}{Warm Up with ML Tools}{}
 \BOOKMARK [2][-]{subsection.2.1}{WU4}{section.2}
 \BOOKMARK [2][-]{subsection.2.2}{WU5}{section.2}
@@ -10,5 +10,5 @@
 \BOOKMARK [1][-]{section.3}{Reductions for Multiclass Classification}{}
 \BOOKMARK [2][-]{subsection.3.1}{WU8}{section.3}
 \BOOKMARK [2][-]{subsection.3.2}{WU9}{section.3}
-\BOOKMARK [2][-]{subsection.3.3}{Ranking or Collective Classification}{section.3}
-\BOOKMARK [2][-]{subsection.3.4}{WU10b}{section.3}
+\BOOKMARK [1][-]{section.4}{Collective Classification}{}
+\BOOKMARK [2][-]{subsection.4.1}{WU10b}{section.4}

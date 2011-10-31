@@ -183,10 +183,38 @@ Ask Hal.
 \pagebreak
 \section{Reductions for Multiclass Classification}
 \subsection{WU8}
-\textsf{}
+\textsf{For each of the three reductions, run your classifier on the text classification problem with four classes. For the tree reduction, make the first split {graphics,windows} versus {baseball,hockey}. Tune your hyperparameters as well as you can and report the best results you can for each of the three. Which one wins? Which one was easiest to tune hyperparameters for?}
+We used megam to do all of the reductions.
+For tree reduction, the best result we got was 84.87\% with lambda
+$2^2$. We tested all the parameters between $2^{-5}$ to $2^{5}$. For
+tree tuning the hyperparameter was easy, in fact tuning the
+hyperparameter for all of them was not a problem (?is this correct?)
+because we used megam, the only thing we had to tune was the lambda.
 
 \subsection{WU9}
-\textsf{}
+\textsf{Change the structure of the tree classifier so that the first
+  split is {graphics,baseball} versus {windows,hockey}. (Thus, the
+  hard decision is first, and the easy decisions come second.) Return
+  hyperparameters well. Does this work better or worse than the
+  previous split, and why?}
+With this split, the best result we got was 84.43\% with lambda
+$2^1$. The same values of lambda was used to tune( $2^{-5}$ to $2^{5}$
+The performance of this tree depends on the lambda  of course, but in
+general the first tree works better (average on all hyperparameter for
+the first tree is 83.84\% where that of the second tree is 83.5\%). This is because the
+first split at the root is the hard decision, and it's likely that
+sinc that decision is harder, we make more mistakes at the root. 
+
+The error rate of the second tree's root classifier
+using the best lamdba ({graphics,baseball}
+versus {windows,hockey}) on the test set was $203 / 1580 = 0.128481$
+
+The error rate of the training of the first tree's root classifier
+using the best lambda ({graphics,windows}
+versus {baseball,hockey}) on the test set was $59 / 1580 = 0.0373418$
+
+As you can see, the second tree's root classifier has lower accuracy
+than that of the first tree. This is why the first split works better.
 
 \pagebreak
 \section{Collective Classification}
@@ -267,7 +295,7 @@ see that when stacking does help at some layer, and overfitting is often observe
 
 \begin{figure}[!ht]
   \caption{Training error and test error vs stacking layers.}
-  \centering
+pp  \centering
   \includegraphics[width=4.5in]{WU5/trainingvstestD2R.png}
   \label{figures:f2}
 \end{figure}
