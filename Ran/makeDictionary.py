@@ -7,7 +7,7 @@ import Stemmer
 # get stop words
 stopWords = open('stopwords.txt', 'r').read().split()
 # files to go through
-texts = ['graphics-windows-test.fastdt', 'graphics-windows-train.fastdt', 'train.basebal.hockey.fastdt'];
+texts = ['graphics-windows-train.fastdt', 'train.basebal.hockey.fastdt'];
 # the dictionary
 uniqueWords = dict()
 stem = Stemmer.Stemmer('english')

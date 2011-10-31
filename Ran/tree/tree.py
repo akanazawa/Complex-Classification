@@ -3,7 +3,8 @@ import os
 from subprocess import Popen, PIPE
 from numpy import *
 import pdb
-lambda_value = 1
+from math import log
+
 GRAPHICS = '../../data/train.comp.graphics.txt'
 WINDOWS = '../../data/train.comp.windows.x.txt'
 BASEBALL = '../../data/train.rec.sport.baseball.txt'
@@ -15,34 +16,34 @@ BASEBALL_TEST = '../../data/test.rec.sport.baseball.txt'
 HOCKEY_TEST = '../../data/test.rec.sport.hockey.txt'
 
 def main():
-	bestFirst = (float(inf), -100)
-	bestSecond = (float(inf), -100)
+	bestFirst = (float("-inf"), -100)
+	bestSecond = (float("-inf"), -100)
 	scoreFirst = []
 	scoreSecond = []
 	for i in range(-6, 3): # try many lambda, see which one's the best
 		lambda_value = 2**i
-		print "\n**********first tree using lambda %f**********"%lambda_value
-		classifiers = trainFirstTree()
+		print "\n**********first tree using lambda 2^%f**********"%log(lambda_value, 2)
+		classifiers = trainFirstTree(lambda_value)
 		firstResult = testFirstTree(classifiers[0], classifiers[1], classifiers[2])
 		scoreFirst.append(firstResult)
-		print "\n********** second tree using lambda %f **********"%lambda_value
-		classifiersTwo = trainSecondTree()
+		print "\n********** second tree using lambda 2^%f **********"%log(lambda_value, 2)
+		classifiersTwo = trainSecondTree(lambda_value)
 		secondResult = testSecondTree(classifiersTwo[0], classifiersTwo[1], classifiersTwo[2])
 		scoreSecond.append(secondResult)
-		print "first tree: %f, second tree: %f with lambda %f"%(firstResult, secondResult, lambda_value)
-		if bestFirst[0] > firstResult:
-			bestFirst = (firstResult, lambda_value)
-		if bestSecond[0] > secondResult:
-			bestSecond = (secondResult, lambda_value)
+		print "first tree: %f, second tree: %f with lambda 2^%f"%(firstResult, secondResult, log(lambda_value, 2))
+		if bestFirst[0] < firstResult:
+			bestFirst = (firstResult, log(lambda_value, 2))
+		if bestSecond[0] < secondResult:
+			bestSecond = (secondResult, log(lambda_value, 2))
 	
-	print "best score for first: %f with lambda %f"%bestFirst
-	print "best score for second: %f with lambda %f"%bestSecond
+	print "best score for first: %f with lambda 2^%f"%bestFirst
+	print "best score for second: %f with lambda 2^%f"%bestSecond
 	print scoreFirst
 	print scoreSecond
 	return (firstResult, secondResult)
 
 
-def trainFirstTree():
+def trainFirstTree(lambda_value):
 	"""
 	Root splits does {graphics,windows} versus {baseball,hockey}. For this data, we only need 3 classifiers, f0, the root, f01, the left leaf, and f10 the right leaf.
 	"""	
@@ -60,7 +61,7 @@ def trainFirstTree():
 		makeAllLabel("tmp2", "tmp22", "-1") #make windows-hockey all -1
 		appendTwoFiles("tmp22", f0_train) #append baseball-hockey to graphics-windows
 	print "train root classifier.."
-	trainMegam(f0_train,f0)
+	trainMegam(f0_train,f0, lambda_value)
 	
 	# f01: the left child classifier of root. does {graphics}vs{windows}
 	fLeft = "treeLeft_model.megam" 
@@ -69,7 +70,7 @@ def trainFirstTree():
 		print "make training data for left.."
 		generateBinaryData(GRAPHICS, WINDOWS, fLeftTrain)
 	print "train left classifier.."
-	trainMegam(fLeftTrain,fLeft)
+	trainMegam(fLeftTrain,fLeft, lambda_value)
 	
 	# f02: the right child classifier of root. does {baseball}vs{hockey}
 	fRight = "treeRight_model.megam" 
@@ -78,10 +79,10 @@ def trainFirstTree():
 		print "make training data for right.."
 		generateBinaryData(BASEBALL, HOCKEY, fRightTrain)
 	print "train right classifier.."
-	trainMegam(fRightTrain,fRight)
+	trainMegam(fRightTrain,fRight, lambda_value)
 	return (f0,fLeft,fRight)
 
-def trainSecondTree():
+def trainSecondTree(lambda_value):
 	"""
 	Root splits does {graphics,baseball} versus {windows,hockey}. 
 	"""	
@@ -95,7 +96,7 @@ def trainSecondTree():
 		generateBinaryData(GRAPHICS, WINDOWS, f0_train) #graphics +1, windows -1
 		appendBinaryData(BASEBALL, HOCKEY, f0_train) # baseball +1, hockey -1
 	print "train root classifier.."
-	trainMegam(f0_train,f0)
+	trainMegam(f0_train,f0, lambda_value)
 		
 	# f01: the left child classifier of root. does {graphics}vs{baseball}
 	fLeft = "treeTwo_Left_model.megam" 
@@ -104,7 +105,7 @@ def trainSecondTree():
 		print "make training data for left.."
 		generateBinaryData(GRAPHICS, BASEBALL, fLeftTrain)
 	print "train left classifier.."
-	trainMegam(fLeftTrain,fLeft)
+	trainMegam(fLeftTrain,fLeft, lambda_value)
 
 	# f02: the right child classifier of root. does {windows}vs{hockey}
 	fRight = "treeTwo_Right_model.megam" 
@@ -114,7 +115,7 @@ def trainSecondTree():
 		generateBinaryData(WINDOWS, HOCKEY, fRightTrain)
 
 	print "train right classifier.."
-	trainMegam(fRightTrain,fRight)
+	trainMegam(fRightTrain,fRight, lambda_value)
 	return (f0,fLeft,fRight)
 
 def testFirstTree(f0,fLeft,fRight):
@@ -299,7 +300,7 @@ def makeAllLabel(fname, fOutName, label):
 def appendTwoFiles(new, orig):
 	os.system("cat %s  >> %s"%(new,orig))
 		
-def trainMegam(fin, fout):
+def trainMegam(fin, fout, lambda_value):
     os.system("megam -fvals -tune -lambda %f binary %s > %s"%(lambda_value,fin, fout))  
 
 def testMegam(fModel,ftest,fout):
