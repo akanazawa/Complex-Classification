@@ -1,0 +1,58 @@
+Multiclass classification using tree reduction:
+
+Everything is contained in tree.py.
+Usage: "python tree.py" will make all test/train/groundTruth, tests
+classifiers against multiple hypterparameters (2^-5, 2^-4, ..., 2^5)
+and prints out the best one for tree 1 and tree 2.
+
+Exlplanation:
+The key methods in tree.py are trainFirstTree, testFirstTree,
+trainSecondTree, and testSecondTree.
+
+What we do is first, for each tree, we make the appropriate training
+data and test data for the root.
+For example, for the first tree we're doing {grapics, windows} vs
+{baseball, hockey}. 
+So in the train/test set, every data in graphics, windows are marked
+as +1, and baseball and hocky are labeled as -1.
+
+Trianing for the leaf case is same as what we did in warmup.
+
+At test time, first we get the result of the root classifier, where we
+get "treef0_Y.megam" and "treeTwo_f0_Y.megam".
+Of those outputs, those who were classified as +1 needs to be added to
+the test data for left tree and those with 0 are going to added to
+the test data for the right tree.
+
+If the data that were supposed to go to the right tree (baseball and
+hockey in the first case) were classified as +1, we mark them as wrong
+when making the test data (handled in makeTestCases).
+
+We generate a groundTruthLabel (getTrueLabel), where we generate the
+features for all 4 classes, but label graphics as 1, windows as 2,
+baseball as 3 and hockey as 4.
+
+When we make the test cases for left and right leaves, we need to
+re-write the labels so that it reflects that of the true
+label. I.e. if a data of class windows was classified at +1 at root,
+we need to write it to the left test cause but change it's label to
+-1. 
+
+This requires us to keep the order of the test/train case consistant
+with the ground truth (always in graphics, windows, baseball and
+hockey), so that we can use line indices to look up the true value. 
+This is why in trainFirstTree/testFirstTree, (line 56~) is a little
+bit complicated because after genearting graphics-windows-train
+featues, we need to relabel all of them as +1 and all of baseball
+hockey to -1. 
+
+Anyway, sorry for this piece of code. Totally not the best I could've
+written. 
+
+But everything is contained so that if you do "python tree.py", it
+will make all the test/train/groundTruth data and test on all
+hyperparameters (line 23) to see which one does the best.
+Ideally that part testing all the hyperparameters should be doing
+x-fold cross-validation (here it's one-fold), but we never go to it.
+
+

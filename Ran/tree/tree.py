@@ -5,15 +5,15 @@ from numpy import *
 import pdb
 from math import log
 
-GRAPHICS = '../../data/train.comp.graphics.txt'
-WINDOWS = '../../data/train.comp.windows.x.txt'
-BASEBALL = '../../data/train.rec.sport.baseball.txt'
-HOCKEY = '../../data/train.rec.sport.hockey.txt'
+GRAPHICS = 'train.comp.graphics.txt'
+WINDOWS = 'train.comp.windows.x.txt'
+BASEBALL = 'train.rec.sport.baseball.txt'
+HOCKEY = 'train.rec.sport.hockey.txt'
 
-GRAPHICS_TEST = '../../data/test.comp.graphics.txt'
-WINDOWS_TEST = '../../data/test.comp.windows.x.txt'
-BASEBALL_TEST = '../../data/test.rec.sport.baseball.txt'
-HOCKEY_TEST = '../../data/test.rec.sport.hockey.txt'
+GRAPHICS_TEST = 'test.comp.graphics.txt'
+WINDOWS_TEST = 'test.comp.windows.x.txt'
+BASEBALL_TEST = 'test.rec.sport.baseball.txt'
+HOCKEY_TEST = 'test.rec.sport.hockey.txt'
 
 def main():
 	bestFirst = (float("-inf"), -100)
