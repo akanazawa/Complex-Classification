@@ -161,6 +161,15 @@ improvement).
 
 \subsection{WU6}
 \textsf{}
+\begin{figure}[h!]
+
+  \centering
+  \includegraphics[width=5in]{WU6/learningCurve_FastDT.png}
+    \caption{WU6: Learning curve for FastDT, Depth from 1-20}
+  \end{figure}
+  
+The figure above shows the learningCurve for FastDT, where the blue curve is the the training error and red curve is the test error. I expected the training error reduce to a really small number with the increasing of the depth of the tree. The testing error will go down at the beginning and will go up later because of the overfitting. As shown in the figure, the plot is similar to what i expected.
+
 
 \subsection{WU7}
 \textsf{Comparing the performance of the three different algorithms 
@@ -209,6 +218,10 @@ $2^2$. We tested all the parameters between $2^{-5}$ to $2^{5}$. For
 tree tuning the hyperparameter was easy, in fact tuning the
 hyperparameter for all of them was not a problem (?is this correct?)
 because we used megam, the only thing we had to tune was the lambda.
+
+For OVA, the best lambda value is 1. When lambda is 1, we get a error rate of 20.3165\%. For AVA, we get the best lambda value of 4, which result in an error rate of 15.506\%. For AVA and OVA, AVA wins.
+ (?DO WE NEED TO TUNE PARAM FOR AVA OVA? I COULDN'T THINK OF ANY?) 
+
 
 \subsection{WU9}
 \textsf{Change the structure of the tree classifier so that the first
