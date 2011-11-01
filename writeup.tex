@@ -188,11 +188,28 @@ What actually does happen?}\\
 \begin{figure}[!ht]
   \begin{center}
   \includegraphics[width=4.5in]{WU6/learningCurve_FastDT.png}
-  \caption{WU6: Learning curve for FastDT, Depth from 1-20}
+  \label{figures:wu61}
+  \end{center}
+\end{figure}
+\begin{figure}[!ht]
+  \begin{center}
+  \includegraphics[width=4.5in]{WU6/learningCurve_megam.png}
+    \label{figures:wu62}
+  \end{center}
+\end{figure}
+\begin{figure}[!ht]
+  \begin{center}
+  \includegraphics[width=4.5in]{WU6/learningCurve_libsvm.png}
+    \label{figures:wu63}
   \end{center}
 \end{figure}
 
-The figure above shows the learningCurve for FastDT, where the blue curve is the the training error and red curve is the test error. I expected the training error reduce to a really small number with the increasing of the depth of the tree. The testing error will go down at the beginning and will go up later because of the overfitting. As shown in the figure, the plot is similar to what i expected.
+Figure \ref{figures:wu61}shows the learning curve for FastDT, where the blue curve is the the training error and red curve is the test error. I expected the training error reduce to a really small number with the increasing of the depth of the tree. The testing error will go down at the beginning and will go up later because of the overfitting. As shown in the figure, the plot is similar to what i expected.
+
+Figure  \ref{figures:wu62} shows the learning curve for Megam. The expected training error is to be smaller and smaller but in this plot, the training error goes up. 
+
+Figure \ref{figures:wu63}shows the learning curve for libsvm.  I expected the training error reduce to a really small number with the increasing of the depth of the tree. The testing error will go down at the beginning and will go up later because of the overfitting. As shown in the figure, the plot is similar to what i expected.
+
 
 \subsection{WU7}
 \textsf{Comparing the performance of the three different algorithms 
