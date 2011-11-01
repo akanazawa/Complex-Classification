@@ -82,8 +82,8 @@ doesn't (the first value in the ouptut of gd is the solution it found).
 
 \begin{figure}[!ht]
   \begin{center}
-  \includegraphics[width=5in]{wu2.png}
-  \caption{WU2: $f(x) = sin(\pi x) + x^2/2$, $f'(x) = \pi cos(\pi x) + x$}
+  \includegraphics[width=4.5in]{wu2.png}
+  \caption{$f(x) = sin(\pi x) + x^2/2$, $f'(x) = \pi cos(\pi x) + x$}
   \end{center}
 \end{figure}
 
@@ -185,37 +185,52 @@ For libsvm, use C values of $2^x,  -5 \leq x \leq 5$.
 Before actually running these experiments, what do you expect to happen? 
 What actually does happen?}\\
 
+Figure \ref{figures:wu61} shows the learning curve for FastDT, 
+where the blue curve is the the training error and red curve 
+is the test error. I expected the training error reduce to a 
+really small number with the increasing of the depth of the tree. 
+The testing error will go down at the beginning and will go up 
+later because of the overfitting. As shown in the figure, the 
+plot is similar to what I expected.
+
 \begin{figure}[!ht]
   \begin{center}
+  \caption{Learning curve of fastDT on various depths}
   \includegraphics[width=4.5in]{WU6/learningCurve_FastDT.png}
   \label{figures:wu61}
   \end{center}
 \end{figure}
-\begin{figure}[!ht]
-  \begin{center}
-  \includegraphics[width=4.5in]{WU6/learningCurve_megam.png}
-    \label{figures:wu62}
-  \end{center}
-\end{figure}
-\begin{figure}[!ht]
-  \begin{center}
-  \includegraphics[width=4.5in]{WU6/learningCurve_libsvm.png}
-    \label{figures:wu63}
-  \end{center}
-\end{figure}
 
-Figure \ref{figures:wu61}shows the learning curve for FastDT, where the blue curve is the the training error and red curve is the test error. I expected the training error reduce to a really small number with the increasing of the depth of the tree. The testing error will go down at the beginning and will go up later because of the overfitting. As shown in the figure, the plot is similar to what I expected.
-
-Figure  \ref{figures:wu62} shows the learning curve for Megam. The
+Figure \ref{figures:wu62} shows the learning curve for Megam. The
 expected training error is to be smaller and smaller but in this plot,
 the training error goes up as lambda increases. This is because as we
 increase the value of lambda, we are imposing too much prior on the
 weights. Lambda is the precision of the gaussian prior, and when
 precision is high, it takes longer iteration for Megam to find the
 optimal weights. However since we don't change the maximum iteration as we
-increase lambda, the training error goes up.
+increase lambda, the training error goes up.\\
 
-Figure \ref{figures:wu63}shows the learning curve for libsvm.  I expected the training error reduce to a really small number with the increasing of the depth of the tree. The testing error will go down at the beginning and will go up later because of the overfitting. As shown in the figure, the plot is similar to what I expected.
+\begin{figure}[!ht]
+  \begin{center}
+  \caption{Learning curve of Megam on various lambda values}
+  \includegraphics[width=4.5in]{WU6/learningCurve_megam.png}
+  \label{figures:wu62}
+  \end{center}
+\end{figure}
+
+\begin{figure}[!ht]
+  \begin{center}
+  \caption{Learning curve of libSVM on various c values}
+  \includegraphics[width=4.5in]{WU6/learningCurve_libsvm.png}
+  \label{figures:wu63}
+  \end{center}
+\end{figure}
+
+Figure \ref{figures:wu63} shows the learning curve for libsvm.  
+I expected the training error reduce to a really small number with
+the increasing of the depth of the tree. The testing error will go 
+down at the beginning and will go up later because of the overfitting. 
+As shown in the figure, the plot is similar to what I expected.
 
 
 \subsection{WU7}

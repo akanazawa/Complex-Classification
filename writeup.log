@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.9.14)  1 NOV 2011 10:42
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.27)  1 NOV 2011 13:31
 entering extended mode
  %&-line parsing enabled.
 **writeup.tex
@@ -208,7 +208,7 @@ LaTeX Font Info:    ... okay on input line 7.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
 LaTeX Font Info:    ... okay on input line 7.
 
-(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+(/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count103
 \scratchdimen=\dimen115
@@ -263,12 +263,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 52.
 [1] <wu2.png, id=78, 586.8324pt x 442.2924pt>
 File: wu2.png Graphic file (type png)
- <use wu2.png>
-Overfull \hbox (1.34999pt too wide) in paragraph at lines 85--86
- [] 
- []
-
-[2 <./wu2.png>]
+ <use wu2.png> [2 <./wu2.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
  []
@@ -286,104 +281,90 @@ Underfull \hbox (badness 10000) in paragraph at lines 186--187
  []
 
 [4 <./wu5_tree.pdf>]
-<WU6/learningCurve_FastDT.png, id=112, 578.16pt x 433.62pt>
+<WU6/learningCurve_FastDT.png, id=113, 578.16pt x 433.62pt>
 File: WU6/learningCurve_FastDT.png Graphic file (type png)
 
 <use WU6/learningCurve_FastDT.png>
-<WU6/learningCurve_megam.png, id=113, 578.16pt x 433.62pt>
+Underfull \hbox (badness 10000) in paragraph at lines 204--212
+
+ []
+
+<WU6/learningCurve_megam.png, id=115, 578.16pt x 433.62pt>
 File: WU6/learningCurve_megam.png Graphic file (type png)
 
 <use WU6/learningCurve_megam.png>
-<WU6/learningCurve_libsvm.png, id=114, 578.16pt x 433.62pt>
+<WU6/learningCurve_libsvm.png, id=116, 578.16pt x 433.62pt>
 File: WU6/learningCurve_libsvm.png Graphic file (type png)
 
-<use WU6/learningCurve_libsvm.png>
+<use WU6/learningCurve_libsvm.png> [5 <./WU6/learningCurve_FastDT.png>]
 
-Package caption Warning: \label before \caption on input line 191.
-See the caption package documentation for explanation.
-
-
-LaTeX Warning: Reference `figures:wu61' on page 5 undefined on input line 207.
+LaTeX Warning: Text page 6 contains only floats.
 
 
-Package caption Warning: \label before \caption on input line 197.
-See the caption package documentation for explanation.
+Overfull \vbox (0.22101pt too high) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `figures:wu62' on page 5 undefined on input line 209.
-
-
-Package caption Warning: \label before \caption on input line 203.
-See the caption package documentation for explanation.
-
-
-LaTeX Warning: Reference `figures:wu63' on page 5 undefined on input line 218.
-
-[5 <./WU6/learningCurve_FastDT.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 224--225
+[6 <./WU6/learningCurve_megam.png> <./WU6/learningCurve_libsvm.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 239--240
 
  []
 
-[6 <./WU6/learningCurve_megam.png> <./WU6/learningCurve_libsvm.png>] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 260--261
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 276--277
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
 
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 308--309
+Underfull \hbox (badness 10000) in paragraph at lines 323--324
 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 310.
+(Font)              <9> on input line 325.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 310.
-[9] <WU5/trainingvstestD3R.png, id=158, 586.8324pt x 442.2924pt>
+(Font)              <5> on input line 325.
+[9] <WU5/trainingvstestD3R.png, id=157, 586.8324pt x 442.2924pt>
 File: WU5/trainingvstestD3R.png Graphic file (type png)
 
 <use WU5/trainingvstestD3R.png> [10 <./WU5/trainingvstestD3R.png>]
-<WU5/trainingvstestD2R.png, id=169, 586.8324pt x 442.2924pt>
+<WU5/trainingvstestD2R.png, id=168, 586.8324pt x 442.2924pt>
 File: WU5/trainingvstestD2R.png Graphic file (type png)
 
 <use WU5/trainingvstestD2R.png>
-<WU5/CrossValidation.png, id=170, 586.8324pt x 442.2924pt>
+<WU5/CrossValidation.png, id=169, 586.8324pt x 442.2924pt>
 File: WU5/CrossValidation.png Graphic file (type png)
 
 <use WU5/CrossValidation.png> [11 <./WU5/trainingvstestD2R.png> <./WU5/CrossVal
-idation.png>] [12] (./writeup.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+idation.png>] [12] (./writeup.aux) ) 
 Here is how much of TeX's memory you used:
- 5304 strings out of 495061
- 80791 string characters out of 1182621
- 153410 words of memory out of 3000000
- 8386 multiletter control sequences out of 15000+50000
- 10958 words of font info for 39 fonts, out of 3000000 for 9000
+ 5302 strings out of 495061
+ 80743 string characters out of 1182621
+ 153436 words of memory out of 3000000
+ 8385 multiletter control sequences out of 15000+50000
+ 10650 words of font info for 38 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 44i,8n,42p,443b,335s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/font
-s/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/pub
-lic/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
-/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pf
-b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share
-/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texliv
-e/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
-fonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
-sy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></u
-sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on writeup.pdf (13 pages, 389311 bytes).
+ 44i,8n,42p,297b,335s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/publi
+c/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
+cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.
+pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/
+amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
+mr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmss10.pfb></u
+sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/te
+xmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/
+fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1
+/public/amsfonts/cm/cmtt9.pfb>
+Output written on writeup.pdf (13 pages, 380314 bytes).
 PDF statistics:
- 241 PDF objects out of 1000 (max. 8388607)
+ 237 PDF objects out of 1000 (max. 8388607)
  41 named destinations out of 1000 (max. 500000)
  153 words of extra memory for PDF output out of 10000 (max. 10000000)
 

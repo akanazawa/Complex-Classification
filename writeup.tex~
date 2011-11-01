@@ -185,7 +185,7 @@ For libsvm, use C values of $2^x,  -5 \leq x \leq 5$.
 Before actually running these experiments, what do you expect to happen? 
 What actually does happen?}\\
 
-Figure \ref{figures:wu61}shows the learning curve for FastDT, 
+Figure \ref{figures:wu61} shows the learning curve for FastDT, 
 where the blue curve is the the training error and red curve 
 is the test error. I expected the training error reduce to a 
 really small number with the increasing of the depth of the tree. 
@@ -208,7 +208,7 @@ increase the value of lambda, we are imposing too much prior on the
 weights. Lambda is the precision of the gaussian prior, and when
 precision is high, it takes longer iteration for Megam to find the
 optimal weights. However since we don't change the maximum iteration as we
-increase lambda, the training error goes up.
+increase lambda, the training error goes up.\\
 
 \begin{figure}[!ht]
   \begin{center}
@@ -218,12 +218,6 @@ increase lambda, the training error goes up.
   \end{center}
 \end{figure}
 
-Figure \ref{figures:wu63} shows the learning curve for libsvm.  
-I expected the training error reduce to a really small number with
-the increasing of the depth of the tree. The testing error will go 
-down at the beginning and will go up later because of the overfitting. 
-As shown in the figure, the plot is similar to what I expected.
-
 \begin{figure}[!ht]
   \begin{center}
 \caption{Accuracy of Algorithms for Text and Digit Classification}
@@ -231,6 +225,13 @@ As shown in the figure, the plot is similar to what I expected.
   \label{figures:wu63}
   \end{center}
 \end{figure}
+
+Figure \ref{figures:wu63} shows the learning curve for libsvm.  
+I expected the training error reduce to a really small number with
+the increasing of the depth of the tree. The testing error will go 
+down at the beginning and will go up later because of the overfitting. 
+As shown in the figure, the plot is similar to what I expected.
+
 
 \subsection{WU7}
 \textsf{Comparing the performance of the three different algorithms 
