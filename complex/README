@@ -1,0 +1,45 @@
+**********Collective Classification using Stack algorithm**********
+
+Data: cora dataset
+Usage: python stack.py
+
+Detail:
+Details about how we made our features is in the writeup.
+
+Overview of the key functions:
+stack.py:
+   the main() in this file is the driver that includes
+   training/testing of a specified train and test dataset, and the
+   cross-validation. The code for cross-validation is commented out.
+
+   stackTrain method takes in the total number of layers, K, the train
+   file, and the directory it should write the data. (This is the
+   implementation of algorithm 20)
+   The only difference is that algorithm 20 calls algorithm 21 (which
+   is our stackTest), but since we keep track of the past predictions
+   (Y_1, Y_2, ....), we don't use stackTest, but directly predicts
+   using the data we already have. This dose the same thign as
+   algorithm 21 but faster (no need to remake the entire thing) 
+   
+   stackTest: is the implementation of algorithm 21.
+
+stackFeatures.py:
+   has the helper method to stack the features.
+   
+   - initFeatures(citeFile, contentFile, fIn) makes the first
+   trainign/test data for megam to use.
+   It takes in citeFile, which is the data that contains how documents
+   are linked to each other
+   contentFile is the file that has the data of all documents.
+   fIn is where the output (data converted so that megam can read it)
+   is going to be written
+   	
+   - stackFeatures(coraData, featureFile, predictFile, outputFile,
+     xVersion)
+     - coraData is something we pass around (the original features) so
+     that it's easier to make stacked features
+     - featureFile is the location of the previous feature (X_{k-1})
+     - predictFile is the location of the previous predictions
+     (Y_{k-1}) to use to add new features
+     - outputFile is where we write the new features (X_k)
+     - xVersion is the current layer we're working on.
